@@ -94,6 +94,44 @@ function clamp(
   );
 }
 
+function buildRibbonPath(
+  visuals: RibbonSegmentVisual[]
+) {
+  if (visuals.length === 0) return "";
+
+  const points = visuals.map((segment) => ({
+    x: segment.x,
+    y: segment.y,
+  }));
+
+  const last = visuals[visuals.length - 1];
+  const lastAngle =
+    (last.angle * Math.PI) / 180;
+
+  points.push({
+    x: last.x + Math.sin(lastAngle) * last.length,
+    y: last.y + Math.cos(lastAngle) * last.length,
+  });
+
+  let path = `M ${points[0].x} ${points[0].y}`;
+
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i - 1] ?? points[i];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2] ?? p2;
+
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+
+    path += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
+  }
+
+  return path;
+}
+
 /* ============================================================
    COMPONENT
    ============================================================ */
@@ -1195,9 +1233,11 @@ export default function FrontendDeveloperSection() {
         overflow-hidden
         flex
         items-start
-        px-6
+        px-4
+        sm:px-6
         md:px-20
-        pt-16
+        pt-14
+        sm:pt-16
         md:pt-28
         select-none
       "
@@ -1206,7 +1246,7 @@ export default function FrontendDeveloperSection() {
           MAIN CONTENT
           ====================================================== */}
 
-      <div className="relative z-20 max-w-2xl">
+      <div className="relative z-20 w-full max-w-2xl pr-0 md:pr-4">
 
         {/* TOP LABEL */}
 
@@ -1241,8 +1281,10 @@ export default function FrontendDeveloperSection() {
               inline-block
               overflow-hidden
               whitespace-nowrap
-              text-[11px]
-              tracking-[0.3em]
+              text-[9px]
+              sm:text-[11px]
+              tracking-[0.22em]
+              sm:tracking-[0.3em]
               uppercase
               text-white/60
               font-mono
@@ -1301,7 +1343,7 @@ export default function FrontendDeveloperSection() {
               leading-[1.05]
               tracking-tight
               text-white
-              text-[clamp(56px,9vw,120px)]
+              text-[clamp(44px,9vw,120px)]
             "
           >
             Cybersecurity
@@ -1333,7 +1375,7 @@ export default function FrontendDeveloperSection() {
               leading-[1.05]
               tracking-tight
               text-white/70
-              text-[clamp(56px,9vw,120px)]
+              text-[clamp(44px,9vw,120px)]
               mb-6
             "
           >
@@ -1396,10 +1438,11 @@ export default function FrontendDeveloperSection() {
             delay: 0.8,
           }}
           className="
-            mt-6
+            mt-5
             flex
             flex-wrap
-            gap-4
+            gap-2.5
+            sm:gap-4
           "
         >
           {[
@@ -1413,10 +1456,13 @@ export default function FrontendDeveloperSection() {
               className="
                 relative
                 group
-                px-5
-                py-2.5
+                px-4
+                py-2
+                sm:px-5
+                sm:py-2.5
                 rounded-2xl
-                text-sm
+                text-xs
+                sm:text-sm
                 font-medium
                 text-white/90
                 bg-white/5
@@ -1474,12 +1520,15 @@ export default function FrontendDeveloperSection() {
 
         <div
           className="
-            mt-8
+            mt-7
             flex
+            w-full
             flex-col
-            [@media(min-width:540px)]:flex-row
-            items-start
-            gap-4
+            sm:flex-row
+            items-stretch
+            sm:items-start
+            gap-3
+            sm:gap-4
           "
         >
           <motion.button
@@ -1507,9 +1556,12 @@ export default function FrontendDeveloperSection() {
               border
               border-accent
               text-accent
+              w-full
+              justify-center
               px-6
               py-3
               text-xs
+              sm:w-auto
               tracking-[0.25em]
               uppercase
               font-semibold
@@ -1550,9 +1602,12 @@ export default function FrontendDeveloperSection() {
               border
               border-white/30
               text-white
+              w-full
+              justify-center
               px-6
               py-3
               text-xs
+              sm:w-auto
               uppercase
               font-bold
               hover:bg-white
@@ -1592,7 +1647,8 @@ export default function FrontendDeveloperSection() {
             <div
               className="
                 absolute
-                right-[8%]
+                right-[-92px]
+                sm:right-[-30px]
                 md:right-[13%]
                 top-0
                 w-[260px]
@@ -1636,115 +1692,106 @@ export default function FrontendDeveloperSection() {
                   "
                 />
 
-                {/* FLEXIBLE RIBBON */}
+                {/* FLEXIBLE RIBBON — CONTINUOUS FABRIC */}
 
-                <div
+                <svg
                   className="
                     absolute
-                    inset-0
+                    left-0
+                    top-0
                     pointer-events-none
                     z-20
+                    overflow-visible
                   "
+                  width={STAGE_WIDTH}
+                  height={520}
+                  viewBox={`0 0 ${STAGE_WIDTH} 520`}
+                  aria-hidden="true"
                 >
-                  {ribbonVisuals.map(
-                    (
-                      segment,
-                      index
-                    ) => (
-                      <div
-                        key={index}
-                        className="
-                          absolute
-                          origin-top
-                          overflow-hidden
-                          bg-black
-                          border-x
-                          border-white/20
-                        "
-                        style={{
-                          left:
-                            segment.x,
+                  {ribbonVisuals.length > 0 && (
+                    <>
+                      {/* Soft edge behind the fabric */}
+                      <path
+                        d={buildRibbonPath(ribbonVisuals)}
+                        fill="none"
+                        stroke="rgba(255,255,255,0.14)"
+                        strokeWidth="48"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
 
-                          top:
-                            segment.y,
+                      {/* One continuous ribbon — the physics points no longer create visible breaks */}
+                      <path
+                        d={buildRibbonPath(ribbonVisuals)}
+                        fill="none"
+                        stroke="#050505"
+                        strokeWidth="44"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
 
-                          width:
-                            "44px",
+                      {/* Subtle fabric highlight along the center */}
+                      <path
+                        d={buildRibbonPath(ribbonVisuals)}
+                        fill="none"
+                        stroke="rgba(255,255,255,0.055)"
+                        strokeWidth="1"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
 
-                          height:
-                            Math.max(
-                              13,
-                              segment.length
-                            ),
+                      {/* Repeated RAHUL lettering follows the moving ribbon */}
+                      {ribbonVisuals.map(
+                        (segment, index) => {
+                          const next =
+                            ribbonVisuals[index + 1];
 
-                          transform:
-                            `
-                              translateX(-50%)
-                              rotate(${segment.angle}deg)
-                            `,
+                          if (!next) return null;
 
-                          transformOrigin:
-                            "50% 0%",
+                          const midX =
+                            (segment.x + next.x) / 2;
+                          const midY =
+                            (segment.y + next.y) / 2;
 
-                          zIndex:
-                            20,
-                        }}
-                      >
-                        <div
-                          className="
-                            absolute
-                            left-[2px]
-                            top-0
-                            bottom-0
-                            w-[1px]
-                            bg-white/10
-                          "
-                        />
+                          const letters = [
+                            "R",
+                            "A",
+                            "H",
+                            "U",
+                            "L",
+                            "",
+                          ];
 
-                        <div
-                          className="
-                            absolute
-                            right-[2px]
-                            top-0
-                            bottom-0
-                            w-[1px]
-                            bg-white/10
-                          "
-                        />
+                          const letter =
+                            letters[index % 6];
 
-                        <div
-                          className="
-                            absolute
-                            inset-0
-                            flex
-                            items-center
-                            justify-center
-                          "
-                        >
-                          <span
-                            className="
-                              text-[9px]
-                              font-black
-                              tracking-[0.08em]
-                              text-white
-                              whitespace-nowrap
-                              drop-shadow-[0_1px_4px_rgba(0,0,0,1)]
-                            "
-                            style={{
-                              writingMode:
-                                "vertical-rl",
+                          if (!letter) return null;
 
-                              transform:
-                                "rotate(180deg)",
-                            }}
-                          >
-                            RAHUL
-                          </span>
-                        </div>
-                      </div>
-                    )
+                          return (
+                            <text
+                              key={`ribbon-letter-${index}`}
+                              x={midX}
+                              y={midY}
+                              fill="white"
+                              fontSize="8"
+                              fontWeight="900"
+                              textAnchor="middle"
+                              dominantBaseline="middle"
+                              transform={`rotate(${segment.angle} ${midX} ${midY})`}
+                              style={{
+                                letterSpacing: "0.08em",
+                                filter:
+                                  "drop-shadow(0 1px 4px rgba(0,0,0,1))",
+                              }}
+                            >
+                              {letter}
+                            </text>
+                          );
+                        }
+                      )}
+                    </>
                   )}
-                </div>
+                </svg>
 
                 {/* ID CARD */}
 
@@ -1763,10 +1810,11 @@ export default function FrontendDeveloperSection() {
                   }
                   className="
                     absolute
-                    top-[315px]
+                    top-[300px]
+                    sm:top-[315px]
                     left-1/2
-                    w-[150px]
-                    sm:w-[175px]
+                    w-[138px]
+                    sm:w-[165px]
                     md:w-[185px]
                     aspect-[0.72]
                     pointer-events-auto

@@ -30,7 +30,9 @@ const projects = [
 export default function Showcase() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-black text-white">
-      {/* Background grid */}
+      {/* =========================================================
+          BACKGROUND GRID
+      ========================================================== */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
@@ -40,22 +42,71 @@ export default function Showcase() {
         }}
       />
 
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-white/[0.025] blur-[140px]" />
+      {/* =========================================================
+          AMBIENT GLOW
+      ========================================================== */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-1/3
+          h-[300px]
+          w-[300px]
+          -translate-x-1/2
+          rounded-full
+          bg-white/[0.025]
+          blur-[110px]
+          sm:h-[400px]
+          sm:w-[400px]
+          md:h-[500px]
+          md:w-[500px]
+          md:blur-[140px]
+        "
+      />
 
-      <div className="relative mx-auto max-w-[1500px] px-6 py-28 md:px-12 lg:px-20 lg:py-36">
-        {/* Header */}
-        <div className="mb-24">
+      {/* =========================================================
+          MAIN CONTAINER
+      ========================================================== */}
+      <div
+        className="
+          relative
+          mx-auto
+          w-full
+          max-w-[1500px]
+          px-4
+          py-20
+          sm:px-6
+          sm:py-24
+          md:px-12
+          md:py-28
+          lg:px-20
+          lg:py-36
+        "
+      >
+        {/* =======================================================
+            HEADER
+        ======================================================== */}
+        <div className="mb-16 sm:mb-20 md:mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
-            className="mb-8 flex items-center gap-4"
+            className="mb-6 flex items-center gap-3 sm:mb-8 sm:gap-4"
           >
-            <span className="h-px w-10 bg-white/30" />
+            <span className="h-px w-7 bg-white/30 sm:w-10" />
 
-            <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">
+            <span
+              className="
+                text-[8px]
+                uppercase
+                tracking-[0.3em]
+                text-white/40
+                sm:text-[10px]
+                sm:tracking-[0.4em]
+              "
+            >
               Selected Work
             </span>
           </motion.div>
@@ -67,10 +118,10 @@ export default function Showcase() {
             transition={{ duration: 0.8 }}
             className="
               max-w-5xl
-              text-6xl
+              text-[clamp(56px,17vw,96px)]
               font-medium
-              leading-[0.9]
-              tracking-[-0.06em]
+              leading-[0.88]
+              tracking-[-0.07em]
               sm:text-7xl
               md:text-8xl
               lg:text-[9rem]
@@ -84,27 +135,71 @@ export default function Showcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-8 max-w-xl"
+            className="mt-6 max-w-xl sm:mt-8"
           >
-            <p className="text-sm leading-7 text-white/45 md:text-base">
+            <p
+              className="
+                text-[13px]
+                leading-6
+                text-white/45
+                sm:text-sm
+                sm:leading-7
+                md:text-base
+              "
+            >
               A selection of projects built while exploring web development,
               technology, and practical problem solving.
             </p>
           </motion.div>
         </div>
 
-        {/* Project count */}
-        <div className="mb-8 flex items-end justify-between border-b border-white/10 pb-5">
-          <span className="text-[10px] uppercase tracking-[0.35em] text-white/30">
+        {/* =======================================================
+            PROJECT COUNT
+        ======================================================== */}
+        <div
+          className="
+            mb-3
+            flex
+            items-end
+            justify-between
+            border-b
+            border-white/10
+            pb-4
+            sm:mb-5
+            sm:pb-5
+            md:mb-8
+          "
+        >
+          <span
+            className="
+              text-[8px]
+              uppercase
+              tracking-[0.28em]
+              text-white/30
+              sm:text-[10px]
+              sm:tracking-[0.35em]
+            "
+          >
             03 Projects
           </span>
 
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/20">
+          <span
+            className="
+              text-[8px]
+              uppercase
+              tracking-[0.25em]
+              text-white/20
+              sm:text-[10px]
+              sm:tracking-[0.3em]
+            "
+          >
             2026
           </span>
         </div>
 
-        {/* Projects */}
+        {/* =======================================================
+            PROJECTS
+        ======================================================== */}
         <div>
           {projects.map((project, index) => (
             <motion.article
@@ -116,72 +211,152 @@ export default function Showcase() {
                 duration: 0.7,
                 delay: index * 0.08,
               }}
-              className="group relative border-b border-white/10"
+              className="
+                group
+                relative
+                border-b
+                border-white/10
+              "
             >
               <div
                 className="
                   relative
                   grid
-                  gap-8
-                  py-10
+                  gap-7
+                  py-8
                   transition-all
                   duration-500
+                  sm:gap-8
+                  sm:py-10
                   md:grid-cols-[80px_1fr_1fr_120px]
                   md:items-center
                   md:py-14
                 "
               >
-                {/* Number */}
-                <div className="self-start">
-                  <span className="text-xs tracking-[0.2em] text-white/25">
+                {/* =================================================
+                    MOBILE PROJECT META
+                ================================================== */}
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-between
+                    md:block
+                  "
+                >
+                  {/* Number */}
+                  <span
+                    className="
+                      text-[10px]
+                      tracking-[0.2em]
+                      text-white/25
+                      sm:text-xs
+                    "
+                  >
                     {project.number}
+                  </span>
+
+                  {/* Mobile category */}
+                  <span
+                    className="
+                      text-[8px]
+                      uppercase
+                      tracking-[0.3em]
+                      text-white/30
+                      md:hidden
+                    "
+                  >
+                    {project.category}
                   </span>
                 </div>
 
-                {/* Main content */}
+                {/* =================================================
+                    MAIN CONTENT
+                ================================================== */}
                 <div>
-                  <p className="mb-3 text-[9px] uppercase tracking-[0.35em] text-white/35">
+                  {/* Desktop category */}
+                  <p
+                    className="
+                      mb-2
+                      hidden
+                      text-[9px]
+                      uppercase
+                      tracking-[0.35em]
+                      text-white/35
+                      md:block
+                      md:mb-3
+                    "
+                  >
                     {project.category}
                   </p>
 
                   <h3
                     className="
-                      text-3xl
+                      max-w-xl
+                      text-[clamp(26px,7vw,36px)]
                       font-medium
-                      tracking-[-0.04em]
+                      leading-[1.05]
+                      tracking-[-0.045em]
                       transition-transform
                       duration-500
-                      group-hover:translate-x-2
+                      group-hover:translate-x-1
+                      sm:text-3xl
                       md:text-4xl
+                      md:group-hover:translate-x-2
                     "
                   >
                     {project.title}
                   </h3>
                 </div>
 
-                {/* Description + tags */}
+                {/* =================================================
+                    DESCRIPTION + TAGS
+                ================================================== */}
                 <div className="max-w-lg">
-                  <p className="text-sm leading-7 text-white/40 transition-colors duration-500 group-hover:text-white/60">
+                  <p
+                    className="
+                      text-[13px]
+                      leading-6
+                      text-white/40
+                      transition-colors
+                      duration-500
+                      group-hover:text-white/60
+                      sm:text-sm
+                      sm:leading-7
+                    "
+                  >
                     {project.description}
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div
+                    className="
+                      mt-4
+                      flex
+                      flex-wrap
+                      gap-1.5
+                      sm:mt-5
+                      sm:gap-2
+                    "
+                  >
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
                         className="
                           border
                           border-white/10
-                          px-3
+                          px-2.5
                           py-1.5
-                          text-[8px]
+                          text-[7px]
                           uppercase
-                          tracking-[0.2em]
+                          tracking-[0.17em]
                           text-white/30
                           transition-colors
                           duration-300
                           group-hover:border-white/20
                           group-hover:text-white/50
+                          sm:px-3
+                          sm:text-[8px]
+                          sm:tracking-[0.2em]
                         "
                       >
                         {tag}
@@ -190,18 +365,31 @@ export default function Showcase() {
                   </div>
                 </div>
 
-                {/* Future link */}
-                <div className="flex items-center md:justify-end">
+                {/* =================================================
+                    FUTURE LINK
+                ================================================== */}
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-start
+                    pt-1
+                    md:justify-end
+                    md:pt-0
+                  "
+                >
                   <span
                     className="
-                      text-[9px]
+                      text-[8px]
                       uppercase
-                      tracking-[0.25em]
+                      tracking-[0.22em]
                       text-white/20
                       transition-all
                       duration-300
                       group-hover:translate-x-1
                       group-hover:text-white/60
+                      sm:text-[9px]
+                      sm:tracking-[0.25em]
                     "
                   >
                     View Project →
@@ -209,7 +397,9 @@ export default function Showcase() {
                 </div>
               </div>
 
-              {/* Hover line */}
+              {/* =================================================
+                  HOVER LINE
+              ================================================== */}
               <div
                 className="
                   absolute
@@ -227,24 +417,30 @@ export default function Showcase() {
           ))}
         </div>
 
-        {/* Footer */}
+        {/* =======================================================
+            FOOTER
+        ======================================================== */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="
-            mt-16
+            mt-12
             flex
             flex-col
-            gap-5
-            text-[9px]
+            gap-3
+            text-[8px]
             uppercase
-            tracking-[0.3em]
+            tracking-[0.25em]
             text-white/25
-            sm:flex-row
-            sm:items-center
-            sm:justify-between
+            sm:mt-16
+            sm:gap-5
+            sm:text-[9px]
+            sm:tracking-[0.3em]
+            md:flex-row
+            md:items-center
+            md:justify-between
           "
         >
           <span>More projects in progress</span>

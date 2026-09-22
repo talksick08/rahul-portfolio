@@ -94,6 +94,7 @@ export default function App() {
               relative
               w-full
               aspect-[1672/941]
+              overflow-hidden
             "
           >
             <img
@@ -312,9 +313,12 @@ export default function App() {
               z-10
               mx-auto
               max-w-7xl
-              px-6
-              py-32
+              px-4
+              py-20
+              sm:px-6
+              sm:py-24
               md:px-12
+              md:py-32
               lg:px-20
             "
           >
@@ -378,12 +382,13 @@ export default function App() {
 
                 <h2
                   className="
-                    text-7xl
+                    text-5xl
                     font-medium
-                    leading-[0.78]
+                    leading-[0.82]
                     tracking-[-0.07em]
-                    sm:text-8xl
-                    md:text-9xl
+                    sm:text-7xl
+                    md:text-8xl
+                    lg:text-9xl
                   "
                 >
                   Work
@@ -391,13 +396,14 @@ export default function App() {
 
                 <h2
                   className="
-                    text-7xl
+                    text-5xl
                     font-medium
-                    leading-[0.78]
+                    leading-[0.82]
                     tracking-[-0.07em]
                     text-white/15
-                    sm:text-8xl
-                    md:text-9xl
+                    sm:text-7xl
+                    md:text-8xl
+                    lg:text-9xl
                   "
                 >
                   Experience
@@ -457,8 +463,11 @@ export default function App() {
             <div
               className="
                 relative
-                mt-24
-                ml-2
+                mt-16
+                ml-1
+                sm:mt-20
+                sm:ml-2
+                md:mt-24
                 md:ml-8
               "
             >
@@ -503,8 +512,11 @@ export default function App() {
                 }}
                 className="
                   relative
-                  pb-24
-                  pl-12
+                  pb-16
+                  pl-10
+                  sm:pb-20
+                  sm:pl-12
+                  md:pb-24
                   md:pl-20
                 "
               >
@@ -589,12 +601,14 @@ export default function App() {
                   className="
                     group
                     relative
+                    w-full
                     overflow-hidden
                     rounded-2xl
                     border
                     border-white/[0.08]
                     bg-white/[0.025]
-                    p-7
+                    p-5
+                    sm:p-7
                     transition-all
                     duration-500
                     hover:border-white/[0.16]
@@ -651,9 +665,10 @@ export default function App() {
                       <h3
                         className="
                           mt-3
-                          text-3xl
+                          text-2xl
                           font-medium
                           tracking-[-0.04em]
+                          sm:text-3xl
                           md:text-4xl
                         "
                       >
@@ -823,8 +838,10 @@ export default function App() {
                 }}
                 className="
                   relative
-                  pb-10
-                  pl-12
+                  pb-8
+                  pl-10
+                  sm:pl-12
+                  md:pb-10
                   md:pl-20
                 "
               >
@@ -909,12 +926,14 @@ export default function App() {
                   className="
                     group
                     relative
+                    w-full
                     overflow-hidden
                     rounded-2xl
                     border
                     border-white/[0.06]
                     bg-white/[0.018]
-                    p-7
+                    p-5
+                    sm:p-7
                     transition-all
                     duration-500
                     hover:border-white/[0.12]
@@ -1133,8 +1152,11 @@ export default function App() {
             border-t
             border-white/10
             bg-black
-            px-6
-            py-10
+            px-4
+            py-8
+            pb-[calc(2rem+env(safe-area-inset-bottom))]
+            sm:px-6
+            sm:py-10
           "
         >
           <div

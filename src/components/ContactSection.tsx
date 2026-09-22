@@ -29,11 +29,11 @@ ${message || "I would like to connect with you."}`;
     };
 
     return (
-        <section className="relative overflow-hidden bg-black px-6 py-24 text-white md:px-12 lg:px-20 lg:py-32">
+        <section className="relative overflow-hidden bg-black px-4 py-20 text-white sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20 lg:py-32">
             {/* Background atmosphere */}
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute left-[-10%] top-[20%] h-[500px] w-[500px] rounded-full bg-white/[0.025] blur-[140px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] h-[600px] w-[600px] rounded-full bg-white/[0.02] blur-[160px]" />
+                <div className="absolute right-[-10%] bottom-[-10%] h-[600px] w-[600px] rounded-full bg-white/[0.02] blur-[160px]" />
 
                 <div
                     className="absolute inset-0 opacity-[0.08]"
@@ -69,10 +69,12 @@ ${message || "I would like to connect with you."}`;
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="overflow-x-auto text-center scrollbar-none"
+                    className="text-center"
                 >
-                    <h2 className="whitespace-nowrap text-4xl font-semibold leading-none tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-[7rem]">
-                        Let&apos;s Build Together
+                    <h2 className="text-[clamp(42px,12vw,64px)] font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl md:text-7xl lg:text-[7rem]">
+                        Let&apos;s Build
+                        <br />
+                        <span className="text-white">Together</span>
                     </h2>
 
                     <p className="mx-auto mt-8 max-w-3xl text-[10px] uppercase tracking-[0.42em] text-white/45 sm:text-xs">
@@ -81,7 +83,7 @@ ${message || "I would like to connect with you."}`;
                 </motion.div>
 
                 {/* Main content */}
-                <div className="mt-20 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20">
+                <div className="mt-14 grid gap-10 sm:mt-16 sm:gap-12 lg:mt-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20">
                     {/* Left side */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -97,17 +99,17 @@ ${message || "I would like to connect with you."}`;
                             </span>
                         </div>
 
-                        <h3 className="max-w-xl text-3xl font-medium leading-tight tracking-[-0.035em] sm:text-4xl md:text-5xl">
+                        <h3 className="max-w-xl text-[clamp(26px,7vw,36px)] font-medium leading-tight tracking-[-0.035em] sm:text-4xl md:text-5xl">
                             Have an idea, project, or collaboration in mind?
                         </h3>
 
-                        <p className="mt-7 max-w-lg text-sm leading-7 text-white/45 md:text-base">
+                        <p className="mt-6 max-w-lg text-[13px] leading-6 text-white/45 sm:mt-7 sm:text-sm sm:leading-7 md:text-base">
                             Send me a message and let&apos;s create something clean,
                             modern, and impactful together.
                         </p>
 
-                        {/* Contact cards */}
-                        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
+                        {/* Social/contact cards */}
+                        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
                             {/* Email */}
                             <a
                                 href="https://mail.google.com/mail/?view=cm&fs=1&to=rahulmahanta156@gmail.com"
@@ -115,15 +117,15 @@ ${message || "I would like to connect with you."}`;
                                 rel="noopener noreferrer"
                                 className="group"
                             >
-                                <div className="flex h-20 w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaEnvelope className="text-2xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
+                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
+                                    <FaEnvelope className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
                                 </div>
 
-                                <p className="mt-3 text-center text-sm font-medium">
+                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
                                     Email
                                 </p>
 
-                                <p className="mt-1 text-center text-[10px] text-white/35">
+                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
                                     Drop a mail
                                 </p>
                             </a>
@@ -135,15 +137,15 @@ ${message || "I would like to connect with you."}`;
                                 rel="noopener noreferrer"
                                 className="group"
                             >
-                                <div className="flex h-20 w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaWhatsapp className="text-2xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
+                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
+                                    <FaWhatsapp className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
                                 </div>
 
-                                <p className="mt-3 text-center text-sm font-medium">
+                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
                                     WhatsApp
                                 </p>
 
-                                <p className="mt-1 text-center text-[10px] text-white/35">
+                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
                                     Let&apos;s chat
                                 </p>
                             </a>
@@ -155,15 +157,15 @@ ${message || "I would like to connect with you."}`;
                                 rel="noopener noreferrer"
                                 className="group"
                             >
-                                <div className="flex h-20 w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaInstagram className="text-2xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
+                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
+                                    <FaInstagram className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
                                 </div>
 
-                                <p className="mt-3 text-center text-sm font-medium">
+                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
                                     Instagram
                                 </p>
 
-                                <p className="mt-1 text-center text-[10px] text-white/35">
+                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
                                     @highnhoes
                                 </p>
                             </a>
@@ -175,43 +177,43 @@ ${message || "I would like to connect with you."}`;
                                 rel="noopener noreferrer"
                                 className="group"
                             >
-                                <div className="flex h-20 w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaGithub className="text-2xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
+                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
+                                    <FaGithub className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
                                 </div>
 
-                                <p className="mt-3 text-center text-sm font-medium">
+                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
                                     GitHub
                                 </p>
 
-                                <p className="mt-1 text-center text-[10px] text-white/35">
+                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
                                     talksick08
                                 </p>
                             </a>
                         </div>
 
-                        <p className="mt-12 max-w-md text-[10px] uppercase leading-5 tracking-[0.3em] text-white/25">
+                        <p className="mt-9 max-w-md text-[9px] sm:mt-12 sm:text-[10px] uppercase leading-5 tracking-[0.3em] text-white/25">
                             &quot;Good ideas turn into great things
                             <br />
                             when the right people connect.&quot;
                         </p>
                     </motion.div>
 
-                    {/* Right side - message form */}
+                    {/* Right side - form */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, delay: 0.1 }}
-                        className="rounded-[28px] border border-white/15 bg-white/[0.035] p-6 shadow-[0_0_60px_rgba(255,255,255,0.04)] backdrop-blur-xl sm:p-8 md:p-10"
+                        className="rounded-[24px] border border-white/15 bg-white/[0.035] p-5 shadow-[0_0_60px_rgba(255,255,255,0.04)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 md:p-10"
                     >
                         {/* Form header */}
                         <div className="flex items-start justify-between gap-6">
                             <div>
-                                <h3 className="text-2xl font-medium tracking-[-0.03em] md:text-3xl">
+                                <h3 className="text-[22px] font-medium tracking-[-0.03em] sm:text-2xl md:text-3xl">
                                     Send a Message
                                 </h3>
 
-                                <p className="mt-3 max-w-md text-sm leading-6 text-white/40">
+                                <p className="mt-3 max-w-md text-[13px] leading-6 text-white/40 sm:text-sm">
                                     Your message opens directly in WhatsApp — no spam, just
                                     real connection.
                                 </p>
@@ -232,7 +234,7 @@ ${message || "I would like to connect with you."}`;
                                 Your Name
                             </label>
 
-                            <div className="flex items-center gap-4 rounded-2xl border border-white/15 bg-black/30 px-5 transition-colors focus-within:border-white/35">
+                            <div className="flex items-center gap-3 rounded-2xl border border-white/15 bg-black/30 px-4 transition-colors sm:gap-4 sm:px-5 focus-within:border-white/35">
                                 <FaUser className="shrink-0 text-sm text-white/35" />
 
                                 <input
@@ -241,7 +243,7 @@ ${message || "I would like to connect with you."}`;
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     placeholder="Your Name"
-                                    className="h-16 w-full bg-transparent text-sm text-white outline-none placeholder:text-white/30"
+                                    className="h-14 w-full bg-transparent text-sm sm:h-16 text-white outline-none placeholder:text-white/30"
                                 />
                             </div>
                         </div>
@@ -252,7 +254,7 @@ ${message || "I would like to connect with you."}`;
                                 Write your message
                             </label>
 
-                            <div className="flex items-start gap-4 rounded-2xl border border-white/15 bg-black/30 px-5 py-4 transition-colors focus-within:border-white/35">
+                            <div className="flex items-start gap-3 rounded-2xl border border-white/15 bg-black/30 px-4 py-4 transition-colors sm:gap-4 sm:px-5 focus-within:border-white/35">
                                 <FaCommentDots className="mt-1 shrink-0 text-sm text-white/35" />
 
                                 <textarea
@@ -270,7 +272,7 @@ ${message || "I would like to connect with you."}`;
                         <button
                             type="button"
                             onClick={handleSend}
-                            className="group mt-5 flex w-full items-center justify-between rounded-2xl bg-white px-6 py-5 text-black transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]"
+                            className="group mt-5 flex w-full items-center justify-between rounded-2xl bg-white px-5 py-4.5 sm:px-6 sm:py-5 text-black transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]"
                         >
                             <span className="flex items-center gap-3 text-sm font-semibold">
                                 <FaWhatsapp className="text-lg" />
@@ -281,10 +283,10 @@ ${message || "I would like to connect with you."}`;
                         </button>
 
                         {/* Response status */}
-                        <div className="mt-7 flex items-center gap-3">
+                        <div className="mt-6 flex items-start gap-3 sm:mt-7 sm:items-center">
                             <span className="h-2.5 w-2.5 rounded-full bg-lime-400 shadow-[0_0_12px_rgba(163,230,53,0.7)]" />
 
-                            <span className="text-[10px] uppercase tracking-[0.22em] text-white/30">
+                            <span className="text-[9px] uppercase leading-5 tracking-[0.16em] text-white/30 sm:text-[10px] sm:tracking-[0.22em]">
                                 Usually replies within a few hours
                             </span>
                         </div>
