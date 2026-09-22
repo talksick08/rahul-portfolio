@@ -1176,10 +1176,10 @@ export default function FrontendDeveloperSection() {
       animate={
         goAbout
           ? {
-            x: "-40vw",
-            scale: 0.92,
+            x: "-24vw",
+            scale: 0.97,
             opacity: 0,
-            filter: "blur(8px)",
+            filter: "blur(2px)",
           }
           : {
             x: 0,
@@ -1189,7 +1189,7 @@ export default function FrontendDeveloperSection() {
           }
       }
       transition={{
-        duration: 1.8,
+        duration: 0.9,
         ease: [
           0.16,
           1,
@@ -1233,11 +1233,9 @@ export default function FrontendDeveloperSection() {
         overflow-hidden
         flex
         items-start
-        px-4
-        sm:px-6
+        px-6
         md:px-20
-        pt-14
-        sm:pt-16
+        pt-16
         md:pt-28
         select-none
       "
@@ -1246,7 +1244,7 @@ export default function FrontendDeveloperSection() {
           MAIN CONTENT
           ====================================================== */}
 
-      <div className="relative z-20 w-full max-w-2xl pr-0 md:pr-4">
+      <div className="relative z-20 max-w-2xl">
 
         {/* TOP LABEL */}
 
@@ -1281,10 +1279,8 @@ export default function FrontendDeveloperSection() {
               inline-block
               overflow-hidden
               whitespace-nowrap
-              text-[9px]
-              sm:text-[11px]
-              tracking-[0.22em]
-              sm:tracking-[0.3em]
+              text-[11px]
+              tracking-[0.3em]
               uppercase
               text-white/60
               font-mono
@@ -1343,7 +1339,7 @@ export default function FrontendDeveloperSection() {
               leading-[1.05]
               tracking-tight
               text-white
-              text-[clamp(44px,9vw,120px)]
+              text-[clamp(56px,9vw,120px)]
             "
           >
             Cybersecurity
@@ -1375,7 +1371,7 @@ export default function FrontendDeveloperSection() {
               leading-[1.05]
               tracking-tight
               text-white/70
-              text-[clamp(44px,9vw,120px)]
+              text-[clamp(56px,9vw,120px)]
               mb-6
             "
           >
@@ -1438,11 +1434,10 @@ export default function FrontendDeveloperSection() {
             delay: 0.8,
           }}
           className="
-            mt-5
+            mt-6
             flex
             flex-wrap
-            gap-2.5
-            sm:gap-4
+            gap-4
           "
         >
           {[
@@ -1456,13 +1451,10 @@ export default function FrontendDeveloperSection() {
               className="
                 relative
                 group
-                px-4
-                py-2
-                sm:px-5
-                sm:py-2.5
+                px-5
+                py-2.5
                 rounded-2xl
-                text-xs
-                sm:text-sm
+                text-sm
                 font-medium
                 text-white/90
                 bg-white/5
@@ -1520,15 +1512,12 @@ export default function FrontendDeveloperSection() {
 
         <div
           className="
-            mt-7
+            mt-8
             flex
-            w-full
             flex-col
-            sm:flex-row
-            items-stretch
-            sm:items-start
-            gap-3
-            sm:gap-4
+            [@media(min-width:540px)]:flex-row
+            items-start
+            gap-4
           "
         >
           <motion.button
@@ -1556,12 +1545,9 @@ export default function FrontendDeveloperSection() {
               border
               border-accent
               text-accent
-              w-full
-              justify-center
               px-6
               py-3
               text-xs
-              sm:w-auto
               tracking-[0.25em]
               uppercase
               font-semibold
@@ -1602,12 +1588,9 @@ export default function FrontendDeveloperSection() {
               border
               border-white/30
               text-white
-              w-full
-              justify-center
               px-6
               py-3
               text-xs
-              sm:w-auto
               uppercase
               font-bold
               hover:bg-white
@@ -1647,10 +1630,11 @@ export default function FrontendDeveloperSection() {
             <div
               className="
                 absolute
-                right-[-92px]
-                sm:right-[-30px]
+                right-[18px]
+                sm:right-[2%]
                 md:right-[13%]
-                top-0
+                top-[-55px]
+                sm:top-0
                 w-[260px]
                 h-full
               "
@@ -1810,11 +1794,10 @@ export default function FrontendDeveloperSection() {
                   }
                   className="
                     absolute
-                    top-[300px]
-                    sm:top-[315px]
+                    top-[315px]
                     left-1/2
-                    w-[138px]
-                    sm:w-[165px]
+                    w-[135px]
+                    sm:w-[175px]
                     md:w-[185px]
                     aspect-[0.72]
                     pointer-events-auto

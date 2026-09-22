@@ -5,10 +5,11 @@ import {
     FaEnvelope,
     FaInstagram,
     FaGithub,
+    FaLinkedin,
     FaUser,
     FaCommentDots,
-    FaArrowRight,
-} from "react-icons/fa";
+    FaArrowUpRightFromSquare,
+} from "react-icons/fa6";
 
 export default function ContactSection() {
     const [name, setName] = useState("");
@@ -28,270 +29,1004 @@ ${message || "I would like to connect with you."}`;
         window.open(whatsappUrl, "_blank");
     };
 
+    const socialLinks = [
+        {
+            number: "01",
+            label: "EMAIL",
+            description: "Send an email",
+            icon: FaEnvelope,
+            href: "https://mail.google.com/mail/?view=cm&fs=1&to=rahulmahanta156@gmail.com",
+        },
+        {
+            number: "02",
+            label: "WHATSAPP",
+            description: "Start a conversation",
+            icon: FaWhatsapp,
+            href: "https://wa.me/919679114891",
+        },
+        {
+            number: "03",
+            label: "INSTAGRAM",
+            description: "View profile",
+            icon: FaInstagram,
+            href: "https://www.instagram.com/highnhoes",
+        },
+        {
+            number: "04",
+            label: "GITHUB",
+            description: "Explore projects",
+            icon: FaGithub,
+            href: "https://github.com/talksick08",
+        },
+        {
+            number: "05",
+            label: "LINKEDIN",
+            description: "Connect professionally",
+            icon: FaLinkedin,
+            href: "https://www.linkedin.com/in/rahul-mahanta-57a16a325/",
+        },
+    ];
+
     return (
-        <section className="relative overflow-hidden bg-black px-4 py-20 text-white sm:px-6 sm:py-24 md:px-12 md:py-32 lg:px-20 lg:py-32">
-            {/* Background atmosphere */}
+        <section
+            className="
+                relative
+                overflow-hidden
+                bg-black
+                px-4
+                py-24
+                text-white
+                sm:px-6
+                sm:py-28
+                md:px-12
+                md:py-36
+                lg:px-20
+                lg:py-40
+            "
+        >
+            {/* =========================================================
+                BACKGROUND
+            ========================================================= */}
+
             <div className="pointer-events-none absolute inset-0">
-                <div className="absolute left-[-10%] top-[20%] h-[500px] w-[500px] rounded-full bg-white/[0.025] blur-[140px]" />
-                <div className="absolute right-[-10%] bottom-[-10%] h-[600px] w-[600px] rounded-full bg-white/[0.02] blur-[160px]" />
+                <div
+                    className="
+                        absolute
+                        -left-40
+                        -top-32
+                        h-[420px]
+                        w-[420px]
+                        rounded-full
+                        bg-white/[0.025]
+                        blur-[140px]
+                        sm:h-[600px]
+                        sm:w-[600px]
+                    "
+                />
 
                 <div
-                    className="absolute inset-0 opacity-[0.08]"
+                    className="
+                        absolute
+                        -bottom-40
+                        -right-40
+                        h-[500px]
+                        w-[500px]
+                        rounded-full
+                        bg-white/[0.018]
+                        blur-[150px]
+                    "
+                />
+
+                <div
+                    className="
+                        absolute
+                        inset-0
+                        opacity-[0.025]
+                    "
                     style={{
                         backgroundImage:
-                            "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
+                            "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
                         backgroundSize: "80px 80px",
                     }}
+                />
+
+                <div
+                    className="
+                        absolute
+                        left-1/2
+                        top-0
+                        h-full
+                        w-px
+                        -translate-x-1/2
+                        bg-white/[0.02]
+                    "
                 />
             </div>
 
             <div className="relative mx-auto max-w-7xl">
-                {/* Contact label */}
+
+                {/* =====================================================
+                    HEADER
+                ===================================================== */}
+
                 <motion.div
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-8 flex items-center justify-center gap-6"
+                    transition={{ duration: 0.8 }}
                 >
-                    <span className="h-px w-20 bg-white/40" />
+                    <div
+                        className="
+                            flex
+                            items-center
+                            gap-4
+                            border-b
+                            border-white/[0.08]
+                            pb-5
+                            sm:gap-6
+                            sm:pb-6
+                        "
+                    >
+                        <span className="h-px w-8 bg-white/40 sm:w-14" />
 
-                    <span className="text-[10px] font-medium uppercase tracking-[0.55em] text-white/60">
-                        Contact
-                    </span>
+                        <span
+                            className="
+                                font-mono
+                                text-[8px]
+                                uppercase
+                                tracking-[0.5em]
+                                text-white/40
+                                sm:text-[9px]
+                                sm:tracking-[0.6em]
+                            "
+                        >
+                            07 / Contact
+                        </span>
 
-                    <span className="h-px w-20 bg-white/40" />
+                        <div className="ml-auto flex items-center gap-2.5">
+                            <span className="relative flex h-2 w-2">
+                                <span
+                                    className="
+                                        absolute
+                                        inset-0
+                                        animate-ping
+                                        rounded-full
+                                        bg-lime-400/50
+                                    "
+                                />
+
+                                <span
+                                    className="
+                                        relative
+                                        h-2
+                                        w-2
+                                        rounded-full
+                                        bg-lime-400
+                                    "
+                                />
+                            </span>
+
+                            <span
+                                className="
+                                    font-mono
+                                    text-[7px]
+                                    uppercase
+                                    tracking-[0.25em]
+                                    text-white/30
+                                    sm:text-[8px]
+                                "
+                            >
+                                Available
+                            </span>
+                        </div>
+                    </div>
                 </motion.div>
 
-                {/* Main heading */}
+                {/* =====================================================
+                    HERO
+                ===================================================== */}
+
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="text-center"
+                    transition={{ duration: 0.9 }}
+                    className="
+                        mt-12
+                        grid
+                        gap-8
+                        sm:mt-16
+                        lg:grid-cols-[1.15fr_0.85fr]
+                        lg:items-end
+                    "
                 >
-                    <h2 className="text-[clamp(42px,12vw,64px)] font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl md:text-7xl lg:text-[7rem]">
-                        Let&apos;s Build
-                        <br />
-                        <span className="text-white">Together</span>
-                    </h2>
+                    <div>
+                        <p
+                            className="
+                                mb-5
+                                font-mono
+                                text-[8px]
+                                uppercase
+                                tracking-[0.4em]
+                                text-white/20
+                            "
+                        >
+                            Let&apos;s make something meaningful
+                        </p>
 
-                    <p className="mx-auto mt-8 max-w-3xl text-[10px] uppercase tracking-[0.42em] text-white/45 sm:text-xs">
-                        Ideas × Projects × Collaborations × Opportunities
-                    </p>
+                        <h2
+                            className="
+                                text-[clamp(48px,13vw,118px)]
+                                font-semibold
+                                leading-[0.82]
+                                tracking-[-0.075em]
+                            "
+                        >
+                            LET&apos;S
+                            <br />
+
+                            <span className="text-white/30">
+                                BUILD
+                            </span>
+
+                            <br />
+
+                            TOGETHER
+                            <span className="text-white/20">.</span>
+                        </h2>
+                    </div>
+
+                    <div className="max-w-md lg:justify-self-end lg:pb-2">
+                        <div className="mb-5 h-px w-16 bg-white/20 sm:w-24" />
+
+                        <p
+                            className="
+                                text-sm
+                                leading-7
+                                text-white/40
+                                sm:text-base
+                                sm:leading-8
+                            "
+                        >
+                            Have an idea, project, collaboration, or
+                            opportunity? Start a conversation and let&apos;s
+                            turn the idea into something real.
+                        </p>
+
+                        <div className="mt-6 flex items-center gap-3">
+                            <span
+                                className="
+                                    font-mono
+                                    text-[7px]
+                                    uppercase
+                                    tracking-[0.3em]
+                                    text-white/20
+                                "
+                            >
+                                Ideas
+                            </span>
+
+                            <span className="h-px w-7 bg-white/10" />
+
+                            <span
+                                className="
+                                    font-mono
+                                    text-[7px]
+                                    uppercase
+                                    tracking-[0.3em]
+                                    text-white/20
+                                "
+                            >
+                                Code
+                            </span>
+
+                            <span className="h-px w-7 bg-white/10" />
+
+                            <span
+                                className="
+                                    font-mono
+                                    text-[7px]
+                                    uppercase
+                                    tracking-[0.3em]
+                                    text-white/20
+                                "
+                            >
+                                Security
+                            </span>
+                        </div>
+                    </div>
                 </motion.div>
 
-                {/* Main content */}
-                <div className="mt-14 grid gap-10 sm:mt-16 sm:gap-12 lg:mt-20 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-20">
-                    {/* Left side */}
+                {/* =====================================================
+                    MAIN CONTENT
+                ===================================================== */}
+
+                <div
+                    className="
+                        mt-16
+                        grid
+                        gap-12
+                        sm:mt-20
+                        sm:gap-16
+                        lg:grid-cols-[0.85fr_1.15fr]
+                        lg:gap-20
+                    "
+                >
+
+                    {/* =================================================
+                        CONTACT LINKS
+                    ================================================= */}
+
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        <div className="mb-6 flex items-center gap-5">
-                            <span className="h-px w-12 bg-white/60" />
+                        <div
+                            className="
+                                mb-6
+                                flex
+                                items-center
+                                justify-between
+                                border-b
+                                border-white/[0.08]
+                                pb-4
+                            "
+                        >
+                            <span
+                                className="
+                                    font-mono
+                                    text-[8px]
+                                    uppercase
+                                    tracking-[0.35em]
+                                    text-white/30
+                                "
+                            >
+                                Connect
+                            </span>
 
-                            <span className="text-[10px] uppercase tracking-[0.45em] text-white/50">
-                                Get In Touch
+                            <span
+                                className="
+                                    font-mono
+                                    text-[7px]
+                                    uppercase
+                                    tracking-[0.25em]
+                                    text-white/15
+                                "
+                            >
+                                05 CHANNELS
                             </span>
                         </div>
 
-                        <h3 className="max-w-xl text-[clamp(26px,7vw,36px)] font-medium leading-tight tracking-[-0.035em] sm:text-4xl md:text-5xl">
-                            Have an idea, project, or collaboration in mind?
-                        </h3>
+                        <div className="border-t border-white/[0.08]">
+                            {socialLinks.map((item, index) => {
+                                const Icon = item.icon;
 
-                        <p className="mt-6 max-w-lg text-[13px] leading-6 text-white/45 sm:mt-7 sm:text-sm sm:leading-7 md:text-base">
-                            Send me a message and let&apos;s create something clean,
-                            modern, and impactful together.
-                        </p>
+                                return (
+                                    <motion.a
+                                        key={item.label}
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        initial={{
+                                            opacity: 0,
+                                            x: -15,
+                                        }}
+                                        whileInView={{
+                                            opacity: 1,
+                                            x: 0,
+                                        }}
+                                        viewport={{ once: true }}
+                                        transition={{
+                                            duration: 0.45,
+                                            delay: index * 0.06,
+                                        }}
+                                        className="
+                                            group
+                                            relative
+                                            flex
+                                            min-h-[82px]
+                                            items-center
+                                            gap-4
+                                            border-b
+                                            border-white/[0.08]
+                                            sm:min-h-[92px]
+                                            sm:gap-5
+                                        "
+                                    >
+                                        <span
+                                            className="
+                                                pointer-events-none
+                                                absolute
+                                                inset-y-0
+                                                left-[-16px]
+                                                right-[-16px]
+                                                bg-white/[0.025]
+                                                opacity-0
+                                                transition-opacity
+                                                duration-300
+                                                group-hover:opacity-100
+                                            "
+                                        />
 
-                        {/* Social/contact cards */}
-                        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-4 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-                            {/* Email */}
-                            <a
-                                href="https://mail.google.com/mail/?view=cm&fs=1&to=rahulmahanta156@gmail.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group"
-                            >
-                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaEnvelope className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
-                                </div>
+                                        <span
+                                            className="
+                                                relative
+                                                w-6
+                                                shrink-0
+                                                font-mono
+                                                text-[8px]
+                                                text-white/20
+                                                sm:w-8
+                                                sm:text-[9px]
+                                            "
+                                        >
+                                            {item.number}
+                                        </span>
 
-                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
-                                    Email
-                                </p>
+                                        <span
+                                            className="
+                                                relative
+                                                flex
+                                                h-9
+                                                w-9
+                                                shrink-0
+                                                items-center
+                                                justify-center
+                                                rounded-full
+                                                border
+                                                border-white/10
+                                                bg-white/[0.02]
+                                                transition-all
+                                                duration-300
+                                                group-hover:border-white/25
+                                                group-hover:bg-white/[0.07]
+                                                sm:h-10
+                                                sm:w-10
+                                            "
+                                        >
+                                            <Icon
+                                                className="
+                                                    text-[13px]
+                                                    text-white/50
+                                                    transition-all
+                                                    duration-300
+                                                    group-hover:scale-110
+                                                    group-hover:text-white
+                                                "
+                                            />
+                                        </span>
 
-                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
-                                    Drop a mail
-                                </p>
-                            </a>
+                                        <span className="relative min-w-0 flex-1">
+                                            <span
+                                                className="
+                                                    block
+                                                    text-[9px]
+                                                    font-semibold
+                                                    uppercase
+                                                    tracking-[0.3em]
+                                                    text-white/65
+                                                    sm:text-[10px]
+                                                "
+                                            >
+                                                {item.label}
+                                            </span>
 
-                            {/* WhatsApp */}
-                            <a
-                                href="https://wa.me/919679114891"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group"
-                            >
-                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaWhatsapp className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
-                                </div>
+                                            <span
+                                                className="
+                                                    mt-1.5
+                                                    block
+                                                    text-[10px]
+                                                    text-white/25
+                                                    transition-colors
+                                                    duration-300
+                                                    group-hover:text-white/50
+                                                    sm:text-xs
+                                                "
+                                            >
+                                                {item.description}
+                                            </span>
+                                        </span>
 
-                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
-                                    WhatsApp
-                                </p>
-
-                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
-                                    Let&apos;s chat
-                                </p>
-                            </a>
-
-                            {/* Instagram */}
-                            <a
-                                href="https://www.instagram.com/highnhoes"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group"
-                            >
-                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaInstagram className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
-                                </div>
-
-                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
-                                    Instagram
-                                </p>
-
-                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
-                                    @highnhoes
-                                </p>
-                            </a>
-
-                            {/* GitHub */}
-                            <a
-                                href="https://github.com/talksick08"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group"
-                            >
-                                <div className="flex h-[72px] w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.035] transition-all duration-300 group-hover:border-white/35 group-hover:bg-white/[0.07] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
-                                    <FaGithub className="text-xl text-white/85 transition-transform duration-300 group-hover:scale-110" />
-                                </div>
-
-                                <p className="mt-2 text-center text-xs font-medium sm:mt-3 sm:text-sm">
-                                    GitHub
-                                </p>
-
-                                <p className="mt-1 text-center text-[9px] text-white/35 sm:text-[10px]">
-                                    talksick08
-                                </p>
-                            </a>
+                                        <span
+                                            className="
+                                                relative
+                                                flex
+                                                h-8
+                                                w-8
+                                                shrink-0
+                                                items-center
+                                                justify-center
+                                            "
+                                        >
+                                            <FaArrowUpRightFromSquare
+                                                className="
+                                                    text-[9px]
+                                                    text-white/15
+                                                    transition-all
+                                                    duration-300
+                                                    group-hover:-translate-y-0.5
+                                                    group-hover:translate-x-0.5
+                                                    group-hover:text-white/70
+                                                "
+                                            />
+                                        </span>
+                                    </motion.a>
+                                );
+                            })}
                         </div>
 
-                        <p className="mt-9 max-w-md text-[9px] sm:mt-12 sm:text-[10px] uppercase leading-5 tracking-[0.3em] text-white/25">
-                            &quot;Good ideas turn into great things
-                            <br />
-                            when the right people connect.&quot;
-                        </p>
+                        <div
+                            className="
+                                mt-7
+                                border
+                                border-white/[0.08]
+                                bg-white/[0.015]
+                                px-5
+                                py-5
+                            "
+                        >
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p
+                                        className="
+                                            font-mono
+                                            text-[7px]
+                                            uppercase
+                                            tracking-[0.3em]
+                                            text-white/20
+                                        "
+                                    >
+                                        Digital presence
+                                    </p>
+
+                                    <p
+                                        className="
+                                            mt-2
+                                            text-xs
+                                            font-medium
+                                            tracking-[0.08em]
+                                            text-white/60
+                                        "
+                                    >
+                                        RAHUL · HIGHNHOES
+                                    </p>
+                                </div>
+
+                                <span
+                                    className="
+                                        font-mono
+                                        text-[7px]
+                                        uppercase
+                                        tracking-[0.25em]
+                                        text-white/15
+                                    "
+                                >
+                                    ONLINE
+                                </span>
+                            </div>
+                        </div>
                     </motion.div>
 
-                    {/* Right side - form */}
+                    {/* =================================================
+                        MESSAGE PANEL
+                    ================================================= */}
+
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.7, delay: 0.1 }}
-                        className="rounded-[24px] border border-white/15 bg-white/[0.035] p-5 shadow-[0_0_60px_rgba(255,255,255,0.04)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 md:p-10"
+                        transition={{
+                            duration: 0.8,
+                            delay: 0.1,
+                        }}
+                        className="
+                            relative
+                            overflow-hidden
+                            rounded-[28px]
+                            border
+                            border-white/[0.1]
+                            bg-[#090909]
+                            p-6
+                            sm:rounded-[32px]
+                            sm:p-8
+                            md:p-10
+                        "
                     >
-                        {/* Form header */}
-                        <div className="flex items-start justify-between gap-6">
+                        {/* subtle glow */}
+                        <div
+                            className="
+                                pointer-events-none
+                                absolute
+                                -right-24
+                                -top-24
+                                h-64
+                                w-64
+                                rounded-full
+                                bg-white/[0.025]
+                                blur-[100px]
+                            "
+                        />
+
+                        <div className="relative">
+
+                            {/* heading */}
+
                             <div>
-                                <h3 className="text-[22px] font-medium tracking-[-0.03em] sm:text-2xl md:text-3xl">
-                                    Send a Message
+                                <p
+                                    className="
+                                        text-[8px]
+                                        font-medium
+                                        uppercase
+                                        tracking-[0.35em]
+                                        text-white/35
+                                    "
+                                >
+                                    Let&apos;s talk
+                                </p>
+
+                                <h3
+                                    className="
+                                        mt-3
+                                        text-[clamp(28px,5vw,42px)]
+                                        font-medium
+                                        leading-tight
+                                        tracking-[-0.055em]
+                                    "
+                                >
+                                    Have something
+                                    <br />
+
+                                    <span className="text-white/45">
+                                        in mind?
+                                    </span>
                                 </h3>
 
-                                <p className="mt-3 max-w-md text-[13px] leading-6 text-white/40 sm:text-sm">
-                                    Your message opens directly in WhatsApp — no spam, just
-                                    real connection.
+                                <p
+                                    className="
+                                        mt-4
+                                        max-w-md
+                                        text-sm
+                                        leading-7
+                                        text-white/45
+                                    "
+                                >
+                                    Tell me about it. I&apos;d love to hear
+                                    what you&apos;re working on.
                                 </p>
                             </div>
 
-                            <div className="hidden items-center gap-2 sm:flex">
-                                <span className="h-2.5 w-2.5 rounded-full bg-lime-400 shadow-[0_0_12px_rgba(163,230,53,0.7)]" />
+                            {/* =================================================
+                                NAME
+                            ================================================= */}
 
-                                <span className="text-[9px] uppercase tracking-[0.4em] text-white/35">
-                                    Direct
+                            <div className="mt-9">
+                                <label
+                                    htmlFor="contact-name"
+                                    className="
+                                        mb-3
+                                        flex
+                                        items-center
+                                        gap-2.5
+                                        text-[10px]
+                                        font-semibold
+                                        uppercase
+                                        tracking-[0.25em]
+                                        text-white/70
+                                        sm:text-[11px]
+                                    "
+                                >
+                                    <span
+                                        className="
+                                            h-1.5
+                                            w-1.5
+                                            rounded-full
+                                            bg-white/80
+                                        "
+                                    />
+
+                                    Your name
+                                </label>
+
+                                <div
+                                    className="
+                                        group
+                                        flex
+                                        min-h-[58px]
+                                        items-center
+                                        gap-3
+                                        rounded-xl
+                                        border
+                                        border-white/[0.14]
+                                        bg-white/[0.035]
+                                        px-4
+                                        transition-all
+                                        duration-300
+                                        focus-within:border-white/40
+                                        focus-within:bg-white/[0.055]
+                                    "
+                                >
+                                    <FaUser
+                                        className="
+                                            shrink-0
+                                            text-sm
+                                            text-white/45
+                                            transition-colors
+                                            duration-300
+                                            group-focus-within:text-white/80
+                                        "
+                                    />
+
+                                    <input
+                                        id="contact-name"
+                                        type="text"
+                                        value={name}
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
+                                        placeholder="What should I call you?"
+                                        className="
+                                            h-full
+                                            w-full
+                                            bg-transparent
+                                            text-sm
+                                            text-white
+                                            outline-none
+                                            placeholder:text-white/30
+                                        "
+                                    />
+                                </div>
+                            </div>
+
+                            {/* =================================================
+                                MESSAGE
+                            ================================================= */}
+
+                            <div className="mt-7">
+                                <div className="mb-3 flex items-center justify-between">
+                                    <label
+                                        htmlFor="contact-message"
+                                        className="
+                                            flex
+                                            items-center
+                                            gap-2.5
+                                            text-[10px]
+                                            font-semibold
+                                            uppercase
+                                            tracking-[0.25em]
+                                            text-white/70
+                                            sm:text-[11px]
+                                        "
+                                    >
+                                        <span
+                                            className="
+                                                h-1.5
+                                                w-1.5
+                                                rounded-full
+                                                bg-white/80
+                                            "
+                                        />
+
+                                        Your message
+                                    </label>
+
+                                    <span
+                                        className="
+                                            rounded-full
+                                            border
+                                            border-white/10
+                                            bg-white/[0.04]
+                                            px-2.5
+                                            py-1
+                                            font-mono
+                                            text-[8px]
+                                            text-white/50
+                                        "
+                                    >
+                                        {message.length}/500
+                                    </span>
+                                </div>
+
+                                <div
+                                    className="
+                                        group
+                                        flex
+                                        items-start
+                                        gap-3
+                                        rounded-xl
+                                        border
+                                        border-white/[0.14]
+                                        bg-white/[0.035]
+                                        px-4
+                                        transition-all
+                                        duration-300
+                                        focus-within:border-white/40
+                                        focus-within:bg-white/[0.055]
+                                    "
+                                >
+                                    <FaCommentDots
+                                        className="
+                                            mt-4
+                                            shrink-0
+                                            text-sm
+                                            text-white/45
+                                            transition-colors
+                                            duration-300
+                                            group-focus-within:text-white/80
+                                        "
+                                    />
+
+                                    <textarea
+                                        id="contact-message"
+                                        value={message}
+                                        maxLength={500}
+                                        onChange={(e) =>
+                                            setMessage(e.target.value)
+                                        }
+                                        placeholder="What would you like to build?"
+                                        rows={5}
+                                        className="
+                                            w-full
+                                            resize-none
+                                            bg-transparent
+                                            py-4
+                                            text-sm
+                                            leading-7
+                                            text-white
+                                            outline-none
+                                            placeholder:text-white/30
+                                        "
+                                    />
+                                </div>
+                            </div>
+
+                            {/* =================================================
+                                SEND BUTTON
+                            ================================================= */}
+
+                            <button
+                                type="button"
+                                onClick={handleSend}
+                                className="
+                                    group
+                                    mt-8
+                                    flex
+                                    w-full
+                                    items-center
+                                    justify-between
+                                    rounded-full
+                                    bg-white
+                                    px-5
+                                    py-3.5
+                                    text-black
+                                    transition-all
+                                    duration-300
+                                    hover:bg-white/90
+                                    hover:shadow-[0_0_50px_rgba(255,255,255,0.08)]
+                                    sm:px-6
+                                    sm:py-4
+                                "
+                            >
+                                <span
+                                    className="
+                                        flex
+                                        items-center
+                                        gap-3
+                                        text-sm
+                                        font-semibold
+                                    "
+                                >
+                                    <FaWhatsapp className="text-base" />
+
+                                    Send message
+                                </span>
+
+                                <span
+                                    className="
+                                        flex
+                                        h-8
+                                        w-8
+                                        items-center
+                                        justify-center
+                                        rounded-full
+                                        bg-black/[0.07]
+                                    "
+                                >
+                                    <FaArrowUpRightFromSquare
+                                        className="
+                                            text-[9px]
+                                            transition-transform
+                                            duration-300
+                                            group-hover:-translate-y-0.5
+                                            group-hover:translate-x-0.5
+                                        "
+                                    />
+                                </span>
+                            </button>
+
+                            {/* response note */}
+
+                            <div
+                                className="
+                                    mt-5
+                                    flex
+                                    items-center
+                                    gap-2.5
+                                "
+                            >
+                                <span
+                                    className="
+                                        h-1.5
+                                        w-1.5
+                                        rounded-full
+                                        bg-lime-400
+                                        shadow-[0_0_10px_rgba(163,230,53,0.6)]
+                                    "
+                                />
+
+                                <span
+                                    className="
+                                        text-[8px]
+                                        uppercase
+                                        tracking-[0.25em]
+                                        text-white/25
+                                    "
+                                >
+                                    I&apos;ll get back to you soon
                                 </span>
                             </div>
                         </div>
-
-                        {/* Name */}
-                        <div className="mt-8">
-                            <label className="sr-only" htmlFor="contact-name">
-                                Your Name
-                            </label>
-
-                            <div className="flex items-center gap-3 rounded-2xl border border-white/15 bg-black/30 px-4 transition-colors sm:gap-4 sm:px-5 focus-within:border-white/35">
-                                <FaUser className="shrink-0 text-sm text-white/35" />
-
-                                <input
-                                    id="contact-name"
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    placeholder="Your Name"
-                                    className="h-14 w-full bg-transparent text-sm sm:h-16 text-white outline-none placeholder:text-white/30"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Message */}
-                        <div className="mt-4">
-                            <label className="sr-only" htmlFor="contact-message">
-                                Write your message
-                            </label>
-
-                            <div className="flex items-start gap-3 rounded-2xl border border-white/15 bg-black/30 px-4 py-4 transition-colors sm:gap-4 sm:px-5 focus-within:border-white/35">
-                                <FaCommentDots className="mt-1 shrink-0 text-sm text-white/35" />
-
-                                <textarea
-                                    id="contact-message"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Write your message..."
-                                    rows={5}
-                                    className="w-full resize-none bg-transparent text-sm leading-6 text-white outline-none placeholder:text-white/30"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Send button */}
-                        <button
-                            type="button"
-                            onClick={handleSend}
-                            className="group mt-5 flex w-full items-center justify-between rounded-2xl bg-white px-5 py-4.5 sm:px-6 sm:py-5 text-black transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_40px_rgba(255,255,255,0.15)]"
-                        >
-                            <span className="flex items-center gap-3 text-sm font-semibold">
-                                <FaWhatsapp className="text-lg" />
-                                Send Message
-                            </span>
-
-                            <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-                        </button>
-
-                        {/* Response status */}
-                        <div className="mt-6 flex items-start gap-3 sm:mt-7 sm:items-center">
-                            <span className="h-2.5 w-2.5 rounded-full bg-lime-400 shadow-[0_0_12px_rgba(163,230,53,0.7)]" />
-
-                            <span className="text-[9px] uppercase leading-5 tracking-[0.16em] text-white/30 sm:text-[10px] sm:tracking-[0.22em]">
-                                Usually replies within a few hours
-                            </span>
-                        </div>
                     </motion.div>
                 </div>
+
+                {/* =====================================================
+                    FOOTER
+                ===================================================== */}
+
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1 }}
+                    className="
+                        mt-20
+                        flex
+                        flex-col
+                        gap-3
+                        border-t
+                        border-white/[0.08]
+                        pt-6
+                        sm:mt-24
+                        sm:flex-row
+                        sm:items-center
+                        sm:justify-between
+                    "
+                >
+                    <span
+                        className="
+                            font-mono
+                            text-[7px]
+                            uppercase
+                            tracking-[0.4em]
+                            text-white/20
+                        "
+                    >
+                        RAHUL · HIGHNHOES
+                    </span>
+
+                    <span
+                        className="
+                            font-mono
+                            text-[7px]
+                            uppercase
+                            tracking-[0.35em]
+                            text-white/15
+                        "
+                    >
+                        Ideas × Code × Security
+                    </span>
+                </motion.div>
             </div>
         </section>
     );

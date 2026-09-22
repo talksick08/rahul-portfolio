@@ -15,6 +15,7 @@ import WelcomeScreen from "@/components/WelcomeScreen";
 import FrontendDeveloperSection from "@/components/FrontendDeveloperSection";
 import Showcase from "@/components/Showcase";
 import TechStack from "@/components/TechStack";
+import Certifications from "@/components/Certifications";
 import ContactSection from "@/components/ContactSection";
 
 import About from "./pages/About";
@@ -1125,6 +1126,21 @@ export default function App() {
             </motion.div>
 
           </div>
+        </section>
+
+
+        {/* =================================================
+            CERTIFICATIONS
+        ================================================== */}
+
+        <section
+          id="Certifications"
+          className="
+            relative
+            bg-black
+          "
+        >
+          <Certifications />
         </section>
 
 
