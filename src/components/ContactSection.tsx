@@ -1,1033 +1,402 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-    FaWhatsapp,
-    FaEnvelope,
-    FaInstagram,
-    FaGithub,
-    FaLinkedin,
-    FaUser,
-    FaCommentDots,
-    FaArrowUpRightFromSquare,
-} from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
-export default function ContactSection() {
-    const [name, setName] = useState("");
-    const [message, setMessage] = useState("");
+const RECIPIENT_EMAIL = "rahulmahanta156@gmail.com";
 
-    const handleSend = () => {
-        const finalMessage = `Hi Rahul,
+function buildGmailUrl(subjectText: string, bodyText: string): string {
+  const params = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: RECIPIENT_EMAIL,
+    su: subjectText,
+    body: bodyText,
+  });
+  return `https://mail.google.com/mail/?${params.toString()}`;
+}
 
-My name is ${name || "there"}.
+interface ContactSectionProps {
+  compact?: boolean;
+}
 
-${message || "I would like to connect with you."}`;
+export default function ContactSection({ compact = false }: ContactSectionProps) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
-        const whatsappUrl = `https://wa.me/919679114891?text=${encodeURIComponent(
-            finalMessage
-        )}`;
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [statusNotice, setStatusNotice] = useState<string | null>(null);
 
-        window.open(whatsappUrl, "_blank");
-    };
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const socialLinks = [
-        {
-            number: "01",
-            label: "EMAIL",
-            description: "Send an email",
-            icon: FaEnvelope,
-            href: "https://mail.google.com/mail/?view=cm&fs=1&to=rahulmahanta156@gmail.com",
-        },
-        {
-            number: "02",
-            label: "WHATSAPP",
-            description: "Start a conversation",
-            icon: FaWhatsapp,
-            href: "https://wa.me/919679114891",
-        },
-        {
-            number: "03",
-            label: "INSTAGRAM",
-            description: "View profile",
-            icon: FaInstagram,
-            href: "https://www.instagram.com/highnhoes",
-        },
-        {
-            number: "04",
-            label: "GITHUB",
-            description: "Explore projects",
-            icon: FaGithub,
-            href: "https://github.com/talksick08",
-        },
-        {
-            number: "05",
-            label: "LINKEDIN",
-            description: "Connect professionally",
-            icon: FaLinkedin,
-            href: "https://www.linkedin.com/in/rahul-mahanta-57a16a325/",
-        },
-    ];
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    if (!name.trim()) newErrors.name = "Please enter your name.";
+    if (!email.trim()) {
+      newErrors.email = "Please enter your email address.";
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!subject.trim()) newErrors.subject = "Please enter a subject.";
+    if (!message.trim()) {
+      newErrors.message = "Please write a brief message.";
+    } else if (message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters long.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-    return (
-        <section
-            className="
-                relative
-                overflow-hidden
-                bg-black
-                px-4
-                py-24
-                text-white
-                sm:px-6
-                sm:py-28
-                md:px-12
-                md:py-36
-                lg:px-20
-                lg:py-40
-            "
-        >
-            {/* =========================================================
-                BACKGROUND
-            ========================================================= */}
+  // Quick Direct Email compose button
+  const handleQuickEmailClick = () => {
+    const defaultSubject = "Let's Connect — Portfolio Inquiry";
+    const defaultBody = "Hello Rahul,\n\nI would like to connect with you regarding...";
+    const url = buildGmailUrl(defaultSubject, defaultBody);
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
-            <div className="pointer-events-none absolute inset-0">
-                <div
-                    className="
-                        absolute
-                        -left-40
-                        -top-32
-                        h-[420px]
-                        w-[420px]
-                        rounded-full
-                        bg-white/[0.025]
-                        blur-[140px]
-                        sm:h-[600px]
-                        sm:w-[600px]
-                    "
-                />
+  // Contact form submission -> open Gmail compose with validated details
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
 
-                <div
-                    className="
-                        absolute
-                        -bottom-40
-                        -right-40
-                        h-[500px]
-                        w-[500px]
-                        rounded-full
-                        bg-white/[0.018]
-                        blur-[150px]
-                    "
-                />
+    const formattedBody = `Hello Rahul,\n\nName: ${name.trim()}\nEmail: ${email.trim()}\n\nMessage:\n${message.trim()}`;
+    const url = buildGmailUrl(subject.trim(), formattedBody);
 
-                <div
-                    className="
-                        absolute
-                        inset-0
-                        opacity-[0.025]
-                    "
-                    style={{
-                        backgroundImage:
-                            "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-                        backgroundSize: "80px 80px",
-                    }}
-                />
+    // Open Gmail compose in a new tab
+    window.open(url, "_blank", "noopener,noreferrer");
 
-                <div
-                    className="
-                        absolute
-                        left-1/2
-                        top-0
-                        h-full
-                        w-px
-                        -translate-x-1/2
-                        bg-white/[0.02]
-                    "
-                />
+    // Display honest instructions to visitor (do not pretend message was sent automatically)
+    setStatusNotice(
+      "Gmail has opened in a new tab with your message prefilled. Please review and click Send inside Gmail to complete your inquiry."
+    );
+  };
+
+  return (
+    <section
+      id="contact"
+      data-purpose="contact-section"
+      className="relative w-full bg-[#08080C] text-white py-20 md:py-28 overflow-hidden select-none border-t border-white/10 scroll-mt-20"
+    >
+      {/* Background Ambience & Halos */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+      </div>
+
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-purple-900/15 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-900/15 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-14">
+        {/* Header Tag */}
+        <div className="flex items-center gap-2 mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[10px] font-semibold tracking-widest uppercase text-neutral-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span>06 &bull; START A CONVERSATION &bull; CONTACT &amp; COLLABORATION</span>
+          </div>
+        </div>
+
+        {compact ? (
+          /* =========================================================
+              COMPACT HOMEPAGE CLOSING PREVIEW (Dramatic Dark "LET'S TALK")
+          ========================================================= */
+          <div className="max-w-4xl space-y-10">
+            <div className="space-y-5">
+              <h2 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-white leading-[0.95]">
+                LET'S TALK<span className="text-purple-400">.</span>
+                <br />
+                <span className="bg-gradient-to-r from-purple-300 via-white to-cyan-300 bg-clip-text text-transparent">
+                  START A CONVERSATION.
+                </span>
+              </h2>
+
+              <p className="text-base sm:text-lg text-neutral-300 leading-relaxed font-normal max-w-2xl">
+                Have an opportunity, collaboration idea or technical project? Whether exploring full-stack engineering, cybersecurity workflows, or academic research, let's connect.
+              </p>
             </div>
 
-            <div className="relative mx-auto max-w-7xl">
+            {/* Direct Action Row */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <button
+                type="button"
+                onClick={handleQuickEmailClick}
+                className="px-8 py-4 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-lg hover:scale-105 cursor-pointer inline-flex items-center gap-2"
+              >
+                <span>EMAIL ME</span>
+                <span className="text-base">↗</span>
+              </button>
 
-                {/* =====================================================
-                    HEADER
-                ===================================================== */}
+              <Link
+                to="/contact"
+                className="px-8 py-4 rounded-full border border-white/20 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/40 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 inline-flex items-center gap-2"
+              >
+                <span>VISIT CONTACT PAGE</span>
+                <span className="text-base">↗</span>
+              </Link>
+            </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+            {/* Social Channels List */}
+            <div className="pt-6 border-t border-white/10 space-y-3">
+              <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 block font-bold">
+                ONLINE PROFILES &amp; SOCIAL CHANNELS
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl">
+                <a
+                  href="https://github.com/talksick08"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/30 transition-all flex flex-col justify-between"
                 >
-                    <div
-                        className="
-                            flex
-                            items-center
-                            gap-4
-                            border-b
-                            border-white/[0.08]
-                            pb-5
-                            sm:gap-6
-                            sm:pb-6
-                        "
-                    >
-                        <span className="h-px w-8 bg-white/40 sm:w-14" />
+                  <span className="text-[10px] font-mono text-neutral-400 uppercase">Code</span>
+                  <span className="text-sm font-bold text-white uppercase mt-1">GitHub ↗</span>
+                </a>
 
-                        <span
-                            className="
-                                font-mono
-                                text-[8px]
-                                uppercase
-                                tracking-[0.5em]
-                                text-white/40
-                                sm:text-[9px]
-                                sm:tracking-[0.6em]
-                            "
-                        >
-                            07 / Contact
-                        </span>
-
-                        <div className="ml-auto flex items-center gap-2.5">
-                            <span className="relative flex h-2 w-2">
-                                <span
-                                    className="
-                                        absolute
-                                        inset-0
-                                        animate-ping
-                                        rounded-full
-                                        bg-lime-400/50
-                                    "
-                                />
-
-                                <span
-                                    className="
-                                        relative
-                                        h-2
-                                        w-2
-                                        rounded-full
-                                        bg-lime-400
-                                    "
-                                />
-                            </span>
-
-                            <span
-                                className="
-                                    font-mono
-                                    text-[7px]
-                                    uppercase
-                                    tracking-[0.25em]
-                                    text-white/30
-                                    sm:text-[8px]
-                                "
-                            >
-                                Available
-                            </span>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* =====================================================
-                    HERO
-                ===================================================== */}
-
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.9 }}
-                    className="
-                        mt-12
-                        grid
-                        gap-8
-                        sm:mt-16
-                        lg:grid-cols-[1.15fr_0.85fr]
-                        lg:items-end
-                    "
+                <a
+                  href="https://www.linkedin.com/in/rahul-mahanta-57a16a325/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/30 transition-all flex flex-col justify-between"
                 >
-                    <div>
-                        <p
-                            className="
-                                mb-5
-                                font-mono
-                                text-[8px]
-                                uppercase
-                                tracking-[0.4em]
-                                text-white/20
-                            "
-                        >
-                            Let&apos;s make something meaningful
-                        </p>
+                  <span className="text-[10px] font-mono text-neutral-400 uppercase">Network</span>
+                  <span className="text-sm font-bold text-white uppercase mt-1">LinkedIn ↗</span>
+                </a>
 
-                        <h2
-                            className="
-                                text-[clamp(48px,13vw,118px)]
-                                font-semibold
-                                leading-[0.82]
-                                tracking-[-0.075em]
-                            "
-                        >
-                            LET&apos;S
-                            <br />
-
-                            <span className="text-white/30">
-                                BUILD
-                            </span>
-
-                            <br />
-
-                            TOGETHER
-                            <span className="text-white/20">.</span>
-                        </h2>
-                    </div>
-
-                    <div className="max-w-md lg:justify-self-end lg:pb-2">
-                        <div className="mb-5 h-px w-16 bg-white/20 sm:w-24" />
-
-                        <p
-                            className="
-                                text-sm
-                                leading-7
-                                text-white/40
-                                sm:text-base
-                                sm:leading-8
-                            "
-                        >
-                            Have an idea, project, collaboration, or
-                            opportunity? Start a conversation and let&apos;s
-                            turn the idea into something real.
-                        </p>
-
-                        <div className="mt-6 flex items-center gap-3">
-                            <span
-                                className="
-                                    font-mono
-                                    text-[7px]
-                                    uppercase
-                                    tracking-[0.3em]
-                                    text-white/20
-                                "
-                            >
-                                Ideas
-                            </span>
-
-                            <span className="h-px w-7 bg-white/10" />
-
-                            <span
-                                className="
-                                    font-mono
-                                    text-[7px]
-                                    uppercase
-                                    tracking-[0.3em]
-                                    text-white/20
-                                "
-                            >
-                                Code
-                            </span>
-
-                            <span className="h-px w-7 bg-white/10" />
-
-                            <span
-                                className="
-                                    font-mono
-                                    text-[7px]
-                                    uppercase
-                                    tracking-[0.3em]
-                                    text-white/20
-                                "
-                            >
-                                Security
-                            </span>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* =====================================================
-                    MAIN CONTENT
-                ===================================================== */}
-
-                <div
-                    className="
-                        mt-16
-                        grid
-                        gap-12
-                        sm:mt-20
-                        sm:gap-16
-                        lg:grid-cols-[0.85fr_1.15fr]
-                        lg:gap-20
-                    "
+                <a
+                  href="https://www.instagram.com/highnhoes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/30 transition-all flex flex-col justify-between"
                 >
+                  <span className="text-[10px] font-mono text-neutral-400 uppercase">Social</span>
+                  <span className="text-sm font-bold text-white uppercase mt-1">Instagram ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* =========================================================
+              FULL CONTACT PAGE VIEW (2-Column Form + Direct Channel)
+          ========================================================= */
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {/* Left Column: Direct Info & Social Channels (5 cols) */}
+            <div className="lg:col-span-5 space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white leading-[0.95]">
+                  LET'S BUILD<br />
+                  <span className="bg-gradient-to-r from-purple-300 via-white to-cyan-300 bg-clip-text text-transparent">
+                    SOMETHING MEANINGFUL.
+                  </span>
+                </h2>
 
-                    {/* =================================================
-                        CONTACT LINKS
-                    ================================================= */}
+                <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
+                  Have an interesting project, collaboration opportunity or technical idea? Let's connect and explore what we can create together.
+                </p>
+              </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <div
-                            className="
-                                mb-6
-                                flex
-                                items-center
-                                justify-between
-                                border-b
-                                border-white/[0.08]
-                                pb-4
-                            "
-                        >
-                            <span
-                                className="
-                                    font-mono
-                                    text-[8px]
-                                    uppercase
-                                    tracking-[0.35em]
-                                    text-white/30
-                                "
-                            >
-                                Connect
-                            </span>
-
-                            <span
-                                className="
-                                    font-mono
-                                    text-[7px]
-                                    uppercase
-                                    tracking-[0.25em]
-                                    text-white/15
-                                "
-                            >
-                                05 CHANNELS
-                            </span>
-                        </div>
-
-                        <div className="border-t border-white/[0.08]">
-                            {socialLinks.map((item, index) => {
-                                const Icon = item.icon;
-
-                                return (
-                                    <motion.a
-                                        key={item.label}
-                                        href={item.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        initial={{
-                                            opacity: 0,
-                                            x: -15,
-                                        }}
-                                        whileInView={{
-                                            opacity: 1,
-                                            x: 0,
-                                        }}
-                                        viewport={{ once: true }}
-                                        transition={{
-                                            duration: 0.45,
-                                            delay: index * 0.06,
-                                        }}
-                                        className="
-                                            group
-                                            relative
-                                            flex
-                                            min-h-[82px]
-                                            items-center
-                                            gap-4
-                                            border-b
-                                            border-white/[0.08]
-                                            sm:min-h-[92px]
-                                            sm:gap-5
-                                        "
-                                    >
-                                        <span
-                                            className="
-                                                pointer-events-none
-                                                absolute
-                                                inset-y-0
-                                                left-[-16px]
-                                                right-[-16px]
-                                                bg-white/[0.025]
-                                                opacity-0
-                                                transition-opacity
-                                                duration-300
-                                                group-hover:opacity-100
-                                            "
-                                        />
-
-                                        <span
-                                            className="
-                                                relative
-                                                w-6
-                                                shrink-0
-                                                font-mono
-                                                text-[8px]
-                                                text-white/20
-                                                sm:w-8
-                                                sm:text-[9px]
-                                            "
-                                        >
-                                            {item.number}
-                                        </span>
-
-                                        <span
-                                            className="
-                                                relative
-                                                flex
-                                                h-9
-                                                w-9
-                                                shrink-0
-                                                items-center
-                                                justify-center
-                                                rounded-full
-                                                border
-                                                border-white/10
-                                                bg-white/[0.02]
-                                                transition-all
-                                                duration-300
-                                                group-hover:border-white/25
-                                                group-hover:bg-white/[0.07]
-                                                sm:h-10
-                                                sm:w-10
-                                            "
-                                        >
-                                            <Icon
-                                                className="
-                                                    text-[13px]
-                                                    text-white/50
-                                                    transition-all
-                                                    duration-300
-                                                    group-hover:scale-110
-                                                    group-hover:text-white
-                                                "
-                                            />
-                                        </span>
-
-                                        <span className="relative min-w-0 flex-1">
-                                            <span
-                                                className="
-                                                    block
-                                                    text-[9px]
-                                                    font-semibold
-                                                    uppercase
-                                                    tracking-[0.3em]
-                                                    text-white/65
-                                                    sm:text-[10px]
-                                                "
-                                            >
-                                                {item.label}
-                                            </span>
-
-                                            <span
-                                                className="
-                                                    mt-1.5
-                                                    block
-                                                    text-[10px]
-                                                    text-white/25
-                                                    transition-colors
-                                                    duration-300
-                                                    group-hover:text-white/50
-                                                    sm:text-xs
-                                                "
-                                            >
-                                                {item.description}
-                                            </span>
-                                        </span>
-
-                                        <span
-                                            className="
-                                                relative
-                                                flex
-                                                h-8
-                                                w-8
-                                                shrink-0
-                                                items-center
-                                                justify-center
-                                            "
-                                        >
-                                            <FaArrowUpRightFromSquare
-                                                className="
-                                                    text-[9px]
-                                                    text-white/15
-                                                    transition-all
-                                                    duration-300
-                                                    group-hover:-translate-y-0.5
-                                                    group-hover:translate-x-0.5
-                                                    group-hover:text-white/70
-                                                "
-                                            />
-                                        </span>
-                                    </motion.a>
-                                );
-                            })}
-                        </div>
-
-                        <div
-                            className="
-                                mt-7
-                                border
-                                border-white/[0.08]
-                                bg-white/[0.015]
-                                px-5
-                                py-5
-                            "
-                        >
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <p
-                                        className="
-                                            font-mono
-                                            text-[7px]
-                                            uppercase
-                                            tracking-[0.3em]
-                                            text-white/20
-                                        "
-                                    >
-                                        Digital presence
-                                    </p>
-
-                                    <p
-                                        className="
-                                            mt-2
-                                            text-xs
-                                            font-medium
-                                            tracking-[0.08em]
-                                            text-white/60
-                                        "
-                                    >
-                                        RAHUL · HIGHNHOES
-                                    </p>
-                                </div>
-
-                                <span
-                                    className="
-                                        font-mono
-                                        text-[7px]
-                                        uppercase
-                                        tracking-[0.25em]
-                                        text-white/15
-                                    "
-                                >
-                                    ONLINE
-                                </span>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* =================================================
-                        MESSAGE PANEL
-                    ================================================= */}
-
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                            duration: 0.8,
-                            delay: 0.1,
-                        }}
-                        className="
-                            relative
-                            overflow-hidden
-                            rounded-[28px]
-                            border
-                            border-white/[0.1]
-                            bg-[#090909]
-                            p-6
-                            sm:rounded-[32px]
-                            sm:p-8
-                            md:p-10
-                        "
-                    >
-                        {/* subtle glow */}
-                        <div
-                            className="
-                                pointer-events-none
-                                absolute
-                                -right-24
-                                -top-24
-                                h-64
-                                w-64
-                                rounded-full
-                                bg-white/[0.025]
-                                blur-[100px]
-                            "
-                        />
-
-                        <div className="relative">
-
-                            {/* heading */}
-
-                            <div>
-                                <p
-                                    className="
-                                        text-[8px]
-                                        font-medium
-                                        uppercase
-                                        tracking-[0.35em]
-                                        text-white/35
-                                    "
-                                >
-                                    Let&apos;s talk
-                                </p>
-
-                                <h3
-                                    className="
-                                        mt-3
-                                        text-[clamp(28px,5vw,42px)]
-                                        font-medium
-                                        leading-tight
-                                        tracking-[-0.055em]
-                                    "
-                                >
-                                    Have something
-                                    <br />
-
-                                    <span className="text-white/45">
-                                        in mind?
-                                    </span>
-                                </h3>
-
-                                <p
-                                    className="
-                                        mt-4
-                                        max-w-md
-                                        text-sm
-                                        leading-7
-                                        text-white/45
-                                    "
-                                >
-                                    Tell me about it. I&apos;d love to hear
-                                    what you&apos;re working on.
-                                </p>
-                            </div>
-
-                            {/* =================================================
-                                NAME
-                            ================================================= */}
-
-                            <div className="mt-9">
-                                <label
-                                    htmlFor="contact-name"
-                                    className="
-                                        mb-3
-                                        flex
-                                        items-center
-                                        gap-2.5
-                                        text-[10px]
-                                        font-semibold
-                                        uppercase
-                                        tracking-[0.25em]
-                                        text-white/70
-                                        sm:text-[11px]
-                                    "
-                                >
-                                    <span
-                                        className="
-                                            h-1.5
-                                            w-1.5
-                                            rounded-full
-                                            bg-white/80
-                                        "
-                                    />
-
-                                    Your name
-                                </label>
-
-                                <div
-                                    className="
-                                        group
-                                        flex
-                                        min-h-[58px]
-                                        items-center
-                                        gap-3
-                                        rounded-xl
-                                        border
-                                        border-white/[0.14]
-                                        bg-white/[0.035]
-                                        px-4
-                                        transition-all
-                                        duration-300
-                                        focus-within:border-white/40
-                                        focus-within:bg-white/[0.055]
-                                    "
-                                >
-                                    <FaUser
-                                        className="
-                                            shrink-0
-                                            text-sm
-                                            text-white/45
-                                            transition-colors
-                                            duration-300
-                                            group-focus-within:text-white/80
-                                        "
-                                    />
-
-                                    <input
-                                        id="contact-name"
-                                        type="text"
-                                        value={name}
-                                        onChange={(e) =>
-                                            setName(e.target.value)
-                                        }
-                                        placeholder="What should I call you?"
-                                        className="
-                                            h-full
-                                            w-full
-                                            bg-transparent
-                                            text-sm
-                                            text-white
-                                            outline-none
-                                            placeholder:text-white/30
-                                        "
-                                    />
-                                </div>
-                            </div>
-
-                            {/* =================================================
-                                MESSAGE
-                            ================================================= */}
-
-                            <div className="mt-7">
-                                <div className="mb-3 flex items-center justify-between">
-                                    <label
-                                        htmlFor="contact-message"
-                                        className="
-                                            flex
-                                            items-center
-                                            gap-2.5
-                                            text-[10px]
-                                            font-semibold
-                                            uppercase
-                                            tracking-[0.25em]
-                                            text-white/70
-                                            sm:text-[11px]
-                                        "
-                                    >
-                                        <span
-                                            className="
-                                                h-1.5
-                                                w-1.5
-                                                rounded-full
-                                                bg-white/80
-                                            "
-                                        />
-
-                                        Your message
-                                    </label>
-
-                                    <span
-                                        className="
-                                            rounded-full
-                                            border
-                                            border-white/10
-                                            bg-white/[0.04]
-                                            px-2.5
-                                            py-1
-                                            font-mono
-                                            text-[8px]
-                                            text-white/50
-                                        "
-                                    >
-                                        {message.length}/500
-                                    </span>
-                                </div>
-
-                                <div
-                                    className="
-                                        group
-                                        flex
-                                        items-start
-                                        gap-3
-                                        rounded-xl
-                                        border
-                                        border-white/[0.14]
-                                        bg-white/[0.035]
-                                        px-4
-                                        transition-all
-                                        duration-300
-                                        focus-within:border-white/40
-                                        focus-within:bg-white/[0.055]
-                                    "
-                                >
-                                    <FaCommentDots
-                                        className="
-                                            mt-4
-                                            shrink-0
-                                            text-sm
-                                            text-white/45
-                                            transition-colors
-                                            duration-300
-                                            group-focus-within:text-white/80
-                                        "
-                                    />
-
-                                    <textarea
-                                        id="contact-message"
-                                        value={message}
-                                        maxLength={500}
-                                        onChange={(e) =>
-                                            setMessage(e.target.value)
-                                        }
-                                        placeholder="What would you like to build?"
-                                        rows={5}
-                                        className="
-                                            w-full
-                                            resize-none
-                                            bg-transparent
-                                            py-4
-                                            text-sm
-                                            leading-7
-                                            text-white
-                                            outline-none
-                                            placeholder:text-white/30
-                                        "
-                                    />
-                                </div>
-                            </div>
-
-                            {/* =================================================
-                                SEND BUTTON
-                            ================================================= */}
-
-                            <button
-                                type="button"
-                                onClick={handleSend}
-                                className="
-                                    group
-                                    mt-8
-                                    flex
-                                    w-full
-                                    items-center
-                                    justify-between
-                                    rounded-full
-                                    bg-white
-                                    px-5
-                                    py-3.5
-                                    text-black
-                                    transition-all
-                                    duration-300
-                                    hover:bg-white/90
-                                    hover:shadow-[0_0_50px_rgba(255,255,255,0.08)]
-                                    sm:px-6
-                                    sm:py-4
-                                "
-                            >
-                                <span
-                                    className="
-                                        flex
-                                        items-center
-                                        gap-3
-                                        text-sm
-                                        font-semibold
-                                    "
-                                >
-                                    <FaWhatsapp className="text-base" />
-
-                                    Send message
-                                </span>
-
-                                <span
-                                    className="
-                                        flex
-                                        h-8
-                                        w-8
-                                        items-center
-                                        justify-center
-                                        rounded-full
-                                        bg-black/[0.07]
-                                    "
-                                >
-                                    <FaArrowUpRightFromSquare
-                                        className="
-                                            text-[9px]
-                                            transition-transform
-                                            duration-300
-                                            group-hover:-translate-y-0.5
-                                            group-hover:translate-x-0.5
-                                        "
-                                    />
-                                </span>
-                            </button>
-
-                            {/* response note */}
-
-                            <div
-                                className="
-                                    mt-5
-                                    flex
-                                    items-center
-                                    gap-2.5
-                                "
-                            >
-                                <span
-                                    className="
-                                        h-1.5
-                                        w-1.5
-                                        rounded-full
-                                        bg-lime-400
-                                        shadow-[0_0_10px_rgba(163,230,53,0.6)]
-                                    "
-                                />
-
-                                <span
-                                    className="
-                                        text-[8px]
-                                        uppercase
-                                        tracking-[0.25em]
-                                        text-white/25
-                                    "
-                                >
-                                    I&apos;ll get back to you soon
-                                </span>
-                            </div>
-                        </div>
-                    </motion.div>
+              {/* Direct Connect Card (No visible email address displayed) */}
+              <div className="p-6 sm:p-7 rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-md space-y-4 hover:border-purple-500/40 transition-all duration-300 group">
+                <div>
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-purple-300 block font-bold mb-1">
+                    DIRECT CHANNEL
+                  </span>
+                  <h3 className="text-xl font-black uppercase tracking-tight text-white">
+                    LET'S CONNECT
+                  </h3>
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mt-1">
+                    Have a project or collaboration idea? Send me an email.
+                  </p>
                 </div>
 
-                {/* =====================================================
-                    FOOTER
-                ===================================================== */}
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleQuickEmailClick}
+                    className="px-6 py-3 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-md hover:scale-105 cursor-pointer inline-flex items-center gap-2"
+                  >
+                    <span>EMAIL ME</span>
+                    <span className="text-sm">↗</span>
+                  </button>
+                </div>
+              </div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1 }}
-                    className="
-                        mt-20
-                        flex
-                        flex-col
-                        gap-3
-                        border-t
-                        border-white/[0.08]
-                        pt-6
-                        sm:mt-24
-                        sm:flex-row
-                        sm:items-center
-                        sm:justify-between
-                    "
-                >
-                    <span
-                        className="
-                            font-mono
-                            text-[7px]
-                            uppercase
-                            tracking-[0.4em]
-                            text-white/20
-                        "
-                    >
-                        RAHUL · HIGHNHOES
-                    </span>
+              {/* Social Channels List */}
+              <div className="space-y-3">
+                <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 block font-bold">
+                  ONLINE PROFILES &amp; SOCIALS
+                </span>
 
-                    <span
-                        className="
-                            font-mono
-                            text-[7px]
-                            uppercase
-                            tracking-[0.35em]
-                            text-white/15
-                        "
-                    >
-                        Ideas × Code × Security
-                    </span>
-                </motion.div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <a
+                    href="https://github.com/talksick08"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/30 transition-all flex flex-col justify-between"
+                  >
+                    <span className="text-[10px] font-mono text-neutral-400 uppercase">Code</span>
+                    <span className="text-sm font-bold text-white uppercase mt-1">GitHub ↗</span>
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/rahul-mahanta-57a16a325/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/30 transition-all flex flex-col justify-between"
+                  >
+                    <span className="text-[10px] font-mono text-neutral-400 uppercase">Network</span>
+                    <span className="text-sm font-bold text-white uppercase mt-1">LinkedIn ↗</span>
+                  </a>
+
+                  <a
+                    href="https://www.instagram.com/highnhoes"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-4 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/30 transition-all flex flex-col justify-between"
+                  >
+                    <span className="text-[10px] font-mono text-neutral-400 uppercase">Social</span>
+                    <span className="text-sm font-bold text-white uppercase mt-1">Instagram ↗</span>
+                  </a>
+                </div>
+              </div>
             </div>
-        </section>
-    );
+
+            {/* Right Column: Verified Professional Form (7 cols) */}
+            <div className="lg:col-span-7">
+              <div className="p-8 sm:p-10 rounded-3xl border border-white/15 bg-white/[0.025] backdrop-blur-xl shadow-2xl relative">
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white mb-6">
+                  SEND AN INQUIRY
+                </h3>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Name Field */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-300 mb-1.5 font-mono">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (errors.name) setErrors({ ...errors, name: "" });
+                      }}
+                      placeholder="Rahul Mahanta"
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors ${
+                        errors.name
+                          ? "border-red-500 focus:border-red-400"
+                          : "border-white/15 focus:border-cyan-400"
+                      }`}
+                    />
+                    {errors.name && (
+                      <p className="text-xs text-red-400 mt-1 font-mono">{errors.name}</p>
+                    )}
+                  </div>
+
+                  {/* Email Field */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-300 mb-1.5 font-mono">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (errors.email) setErrors({ ...errors, email: "" });
+                      }}
+                      placeholder="your.email@example.com"
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors ${
+                        errors.email
+                          ? "border-red-500 focus:border-red-400"
+                          : "border-white/15 focus:border-cyan-400"
+                      }`}
+                    />
+                    {errors.email && (
+                      <p className="text-xs text-red-400 mt-1 font-mono">{errors.email}</p>
+                    )}
+                  </div>
+
+                  {/* Subject Field */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-300 mb-1.5 font-mono">
+                      Subject *
+                    </label>
+                    <input
+                      type="text"
+                      value={subject}
+                      onChange={(e) => {
+                        setSubject(e.target.value);
+                        if (errors.subject) setErrors({ ...errors, subject: "" });
+                      }}
+                      placeholder="Project Inquiry / Collaboration / Web Application"
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors ${
+                        errors.subject
+                          ? "border-red-500 focus:border-red-400"
+                          : "border-white/15 focus:border-cyan-400"
+                      }`}
+                    />
+                    {errors.subject && (
+                      <p className="text-xs text-red-400 mt-1 font-mono">{errors.subject}</p>
+                    )}
+                  </div>
+
+                  {/* Message Field */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-300 mb-1.5 font-mono">
+                      Message *
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={message}
+                      onChange={(e) => {
+                        setMessage(e.target.value);
+                        if (errors.message) setErrors({ ...errors, message: "" });
+                      }}
+                      placeholder="Tell me about your project, technical requirements, or collaboration goals..."
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors resize-none ${
+                        errors.message
+                          ? "border-red-500 focus:border-red-400"
+                          : "border-white/15 focus:border-cyan-400"
+                      }`}
+                    />
+                    {errors.message && (
+                      <p className="text-xs text-red-400 mt-1 font-mono">{errors.message}</p>
+                    )}
+                  </div>
+
+                  {/* Status Notice (Genuine instructions, no fake success pretense) */}
+                  {statusNotice && (
+                    <div className="p-4 rounded-xl bg-purple-950/60 border border-purple-500/40 text-xs text-purple-200 leading-relaxed font-mono">
+                      {statusNotice}
+                    </div>
+                  )}
+
+                  {/* Submit Action Button */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-lg hover:scale-105 cursor-pointer inline-flex items-center justify-center gap-2"
+                    >
+                      <span>SEND MESSAGE</span>
+                      <span className="text-sm">↗</span>
+                    </button>
+                  </div>
+
+                  <p className="text-[11px] text-neutral-400 font-mono pt-1">
+                    &bull; Opens directly in Gmail with your details prefilled for review before sending.
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

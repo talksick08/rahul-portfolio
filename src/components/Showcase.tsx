@@ -1,38 +1,55 @@
+
 import { motion } from "framer-motion";
 
 const projects = [
   {
     number: "01",
-    category: "PERSONAL FINANCE",
+    category: "PERSONAL FINANCE · WEB APPLICATION",
     title: "Personal Expense Tracker",
+    shortTitle: "Manage your money. Understand your spending.",
     description:
-      "A web-based personal finance application designed to track expenses, manage financial goals, monitor spending, and organize financial records.",
-    tags: ["WEB APP", "DASHBOARD", "FINANCE"],
+      "A full-stack personal finance management application designed to help users track daily expenses, manage income and transactions, and monitor their spending habits. Built with PHP and MySQL, it provides an organized way to record financial activity and gain better visibility into personal finances.",
+    tags: ["PHP", "MYSQL", "HTML", "CSS", "JAVASCRIPT"],
+    link: "https://expense-tracker-demo.ct.ws/",
+    accent: "from-emerald-400/20 via-teal-400/5 to-transparent",
+    accentText: "text-emerald-300",
+    accentBorder: "group-hover:border-emerald-400/40",
+    accentGlow: "group-hover:shadow-emerald-500/10",
+    symbol: "₹",
+    action: "EXPLORE PROJECT",
   },
   {
     number: "02",
-    category: "STUDENT RECORDS",
-    title: "Student Result Management System",
+    category: "CYBERSECURITY · MACHINE LEARNING",
+    title: "THREATNEX",
+    shortTitle: "Intelligent threat detection. Real-time security insights.",
     description:
-      "A web-based system designed to manage student academic records and results through a structured digital interface.",
-    tags: ["WEB APP", "RESULT MANAGEMENT", "STUDENT RECORDS"],
-  },
-  {
-    number: "03",
-    category: "DEVELOPER TOOL",
-    title: "Online Code Editor",
-    description:
-      "A browser-based coding environment designed to provide an interactive space for writing and working with code.",
-    tags: ["CODE EDITOR", "BROWSER BASED", "DEVELOPER TOOL"],
+      "An AI-powered network security platform that analyzes network traffic to identify and classify potential cyber threats. Powered by a Random Forest machine learning model trained on the NSL-KDD dataset, it detects suspicious activities such as DoS attacks, probing, and brute-force attempts, presenting threat insights through an interactive security dashboard.",
+    tags: [
+      "PYTHON",
+      "FLASK",
+      "SCIKIT-LEARN",
+      "RANDOM FOREST",
+      "SQLITE",
+      "NSL-KDD",
+    ],
+    link: "https://threatnex-ai-ids.vercel.app/",
+    accent: "from-cyan-400/20 via-blue-400/5 to-transparent",
+    accentText: "text-cyan-300",
+    accentBorder: "group-hover:border-cyan-400/40",
+    accentGlow: "group-hover:shadow-cyan-500/10",
+    symbol: "⌘",
+    action: "EXPLORE PROJECT",
   },
 ];
 
 export default function Showcase() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black text-white">
-      {/* =========================================================
-          BACKGROUND GRID
-      ========================================================== */}
+    <section
+      id="projects"
+      className="relative min-h-screen overflow-hidden bg-black text-white"
+    >
+      {/* Background grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
@@ -42,410 +59,180 @@ export default function Showcase() {
         }}
       />
 
-      {/* =========================================================
-          AMBIENT GLOW
-      ========================================================== */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-1/3
-          h-[300px]
-          w-[300px]
-          -translate-x-1/2
-          rounded-full
-          bg-white/[0.025]
-          blur-[110px]
-          sm:h-[400px]
-          sm:w-[400px]
-          md:h-[500px]
-          md:w-[500px]
-          md:blur-[140px]
-        "
-      />
+      {/* Ambient background glow */}
+      <div className="pointer-events-none absolute -left-40 top-1/4 h-[350px] w-[350px] rounded-full bg-emerald-500/[0.06] blur-[140px]" />
+      <div className="pointer-events-none absolute -right-40 bottom-1/4 h-[350px] w-[350px] rounded-full bg-cyan-500/[0.06] blur-[140px]" />
 
-      {/* =========================================================
-          MAIN CONTAINER
-      ========================================================== */}
-      <div
-        className="
-          relative
-          mx-auto
-          w-full
-          max-w-[1500px]
-          px-4
-          py-20
-          sm:px-6
-          sm:py-24
-          md:px-12
-          md:py-28
-          lg:px-20
-          lg:py-36
-        "
-      >
-        {/* =======================================================
-            HEADER
-        ======================================================== */}
-        <div className="mb-16 sm:mb-20 md:mb-24">
+      {/* Main container */}
+      <div className="relative mx-auto w-full max-w-[1500px] px-5 py-24 sm:px-8 sm:py-28 md:px-12 lg:px-20 lg:py-36">
+
+        {/* Section heading */}
+        <div className="mb-14 sm:mb-16 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="mb-6 flex items-center gap-3 sm:mb-8 sm:gap-4"
+            className="mb-6 flex items-center gap-3 sm:mb-8"
           >
-            <span className="h-px w-7 bg-white/30 sm:w-10" />
-
-            <span
-              className="
-                text-[8px]
-                uppercase
-                tracking-[0.3em]
-                text-white/40
-                sm:text-[10px]
-                sm:tracking-[0.4em]
-              "
-            >
-              Selected Work
+            <span className="h-px w-8 bg-white/40" />
+            <span className="text-[9px] uppercase tracking-[0.35em] text-white/40 sm:text-[10px]">
+              Selected Work · 2026
             </span>
           </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8 }}
-            className="
-              max-w-5xl
-              text-[clamp(56px,17vw,96px)]
-              font-medium
-              leading-[0.88]
-              tracking-[-0.07em]
-              sm:text-7xl
-              md:text-8xl
-              lg:text-[9rem]
-            "
-          >
-            Projects
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="mt-6 max-w-xl sm:mt-8"
-          >
-            <p
-              className="
-                text-[13px]
-                leading-6
-                text-white/45
-                sm:text-sm
-                sm:leading-7
-                md:text-base
-              "
-            >
-              A selection of projects built while exploring web development,
-              technology, and practical problem solving.
-            </p>
-          </motion.div>
-        </div>
-
-        {/* =======================================================
-            PROJECT COUNT
-        ======================================================== */}
-        <div
-          className="
-            mb-3
-            flex
-            items-end
-            justify-between
-            border-b
-            border-white/10
-            pb-4
-            sm:mb-5
-            sm:pb-5
-            md:mb-8
-          "
-        >
-          <span
-            className="
-              text-[8px]
-              uppercase
-              tracking-[0.28em]
-              text-white/30
-              sm:text-[10px]
-              sm:tracking-[0.35em]
-            "
-          >
-            03 Projects
-          </span>
-
-          <span
-            className="
-              text-[8px]
-              uppercase
-              tracking-[0.25em]
-              text-white/20
-              sm:text-[10px]
-              sm:tracking-[0.3em]
-            "
-          >
-            2026
-          </span>
-        </div>
-
-        {/* =======================================================
-            PROJECTS
-        ======================================================== */}
-        <div>
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.number}
-              initial={{ opacity: 0, y: 35 }}
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.08,
-              }}
-              className="
-                group
-                relative
-                border-b
-                border-white/10
-              "
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-[clamp(55px,12vw,110px)] font-medium leading-[0.85] tracking-[-0.075em]"
             >
-              <div
-                className="
-                  relative
-                  grid
-                  gap-7
-                  py-8
-                  transition-all
-                  duration-500
-                  sm:gap-8
-                  sm:py-10
-                  md:grid-cols-[80px_1fr_1fr_120px]
-                  md:items-center
-                  md:py-14
-                "
-              >
-                {/* =================================================
-                    MOBILE PROJECT META
-                ================================================== */}
-                <div
-                  className="
-                    flex
-                    items-center
-                    justify-between
-                    md:block
-                  "
-                >
-                  {/* Number */}
-                  <span
-                    className="
-                      text-[10px]
-                      tracking-[0.2em]
-                      text-white/25
-                      sm:text-xs
-                    "
-                  >
-                    {project.number}
-                  </span>
+              Selected
+              <br />
+              <span className="text-white/35">Projects.</span>
+            </motion.h2>
 
-                  {/* Mobile category */}
-                  <span
-                    className="
-                      text-[8px]
-                      uppercase
-                      tracking-[0.3em]
-                      text-white/30
-                      md:hidden
-                    "
-                  >
-                    {project.category}
-                  </span>
-                </div>
-
-                {/* =================================================
-                    MAIN CONTENT
-                ================================================== */}
-                <div>
-                  {/* Desktop category */}
-                  <p
-                    className="
-                      mb-2
-                      hidden
-                      text-[9px]
-                      uppercase
-                      tracking-[0.35em]
-                      text-white/35
-                      md:block
-                      md:mb-3
-                    "
-                  >
-                    {project.category}
-                  </p>
-
-                  <h3
-                    className="
-                      max-w-xl
-                      text-[clamp(26px,7vw,36px)]
-                      font-medium
-                      leading-[1.05]
-                      tracking-[-0.045em]
-                      transition-transform
-                      duration-500
-                      group-hover:translate-x-1
-                      sm:text-3xl
-                      md:text-4xl
-                      md:group-hover:translate-x-2
-                    "
-                  >
-                    {project.title}
-                  </h3>
-                </div>
-
-                {/* =================================================
-                    DESCRIPTION + TAGS
-                ================================================== */}
-                <div className="max-w-lg">
-                  <p
-                    className="
-                      text-[13px]
-                      leading-6
-                      text-white/40
-                      transition-colors
-                      duration-500
-                      group-hover:text-white/60
-                      sm:text-sm
-                      sm:leading-7
-                    "
-                  >
-                    {project.description}
-                  </p>
-
-                  <div
-                    className="
-                      mt-4
-                      flex
-                      flex-wrap
-                      gap-1.5
-                      sm:mt-5
-                      sm:gap-2
-                    "
-                  >
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="
-                          border
-                          border-white/10
-                          px-2.5
-                          py-1.5
-                          text-[7px]
-                          uppercase
-                          tracking-[0.17em]
-                          text-white/30
-                          transition-colors
-                          duration-300
-                          group-hover:border-white/20
-                          group-hover:text-white/50
-                          sm:px-3
-                          sm:text-[8px]
-                          sm:tracking-[0.2em]
-                        "
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* =================================================
-                    FUTURE LINK
-                ================================================== */}
-                <div
-                  className="
-                    flex
-                    items-center
-                    justify-start
-                    pt-1
-                    md:justify-end
-                    md:pt-0
-                  "
-                >
-                  <span
-                    className="
-                      text-[8px]
-                      uppercase
-                      tracking-[0.22em]
-                      text-white/20
-                      transition-all
-                      duration-300
-                      group-hover:translate-x-1
-                      group-hover:text-white/60
-                      sm:text-[9px]
-                      sm:tracking-[0.25em]
-                    "
-                  >
-                    View Project →
-                  </span>
-                </div>
-              </div>
-
-              {/* =================================================
-                  HOVER LINE
-              ================================================== */}
-              <div
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  h-px
-                  w-0
-                  bg-white/40
-                  transition-all
-                  duration-700
-                  group-hover:w-full
-                "
-              />
-            </motion.article>
-          ))}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="max-w-sm text-[13px] leading-7 text-white/45 sm:text-sm md:pb-2"
+            >
+              A collection of things I've built through experimentation,
+              problem-solving, and a passion for technology. From web
+              applications to intelligent cybersecurity solutions.
+            </motion.p>
+          </div>
         </div>
 
-        {/* =======================================================
-            FOOTER
-        ======================================================== */}
+        {/* Project overview */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="
-            mt-12
-            flex
-            flex-col
-            gap-3
-            text-[8px]
-            uppercase
-            tracking-[0.25em]
-            text-white/25
-            sm:mt-16
-            sm:gap-5
-            sm:text-[9px]
-            sm:tracking-[0.3em]
-            md:flex-row
-            md:items-center
-            md:justify-between
-          "
+          transition={{ duration: 0.7 }}
+          className="mb-6 flex items-center justify-between border-y border-white/10 py-4"
         >
-          <span>More projects in progress</span>
+          <span className="text-[9px] uppercase tracking-[0.3em] text-white/35 sm:text-[10px]">
+            Featured Projects
+          </span>
+          <span className="text-[9px] uppercase tracking-[0.25em] text-white/35 sm:text-[10px]">
+            02 / 02
+          </span>
+        </motion.div>
 
-          <span>HIGHNHOES / RAHUL MAHANTA</span>
+        {/* Project cards */}
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-7">
+          {projects.map((project, index) => (
+            <motion.a
+              key={project.number}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${project.title} live project`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                duration: 0.75,
+                delay: index * 0.12,
+              }}
+              className={`group relative flex min-h-[490px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#090909] p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl sm:min-h-[470px] sm:p-8 lg:min-h-[530px] lg:p-9 ${project.accentBorder} ${project.accentGlow}`}
+            >
+              {/* Card gradient */}
+              <div
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${project.accent} opacity-60 transition-opacity duration-500 group-hover:opacity-100`}
+              />
+
+              {/* Decorative background symbol */}
+              <div className="pointer-events-none absolute -right-5 top-20 select-none text-[190px] font-semibold leading-none text-white/[0.025] transition-all duration-700 group-hover:scale-110 group-hover:text-white/[0.045] sm:text-[230px]">
+                {project.symbol}
+              </div>
+
+              {/* Top row */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="text-[10px] tracking-[0.25em] text-white/35">
+                  PROJECT / {project.number}
+                </span>
+
+                <span className="rounded-full border border-white/10 px-3 py-1.5 text-[8px] uppercase tracking-[0.2em] text-white/50">
+                  Featured
+                </span>
+              </div>
+
+              {/* Project identity */}
+              <div className="relative z-10 mt-16 sm:mt-20">
+                <p
+                  className={`mb-4 text-[9px] font-medium uppercase tracking-[0.25em] ${project.accentText}`}
+                >
+                  {project.category}
+                </p>
+
+                <h3 className="max-w-lg text-[clamp(34px,6vw,48px)] font-medium leading-[0.98] tracking-[-0.055em] transition-transform duration-500 group-hover:translate-x-1">
+                  {project.title}
+                </h3>
+
+                <p className="mt-4 max-w-md text-sm font-medium leading-6 text-white/70 sm:text-base">
+                  {project.shortTitle}
+                </p>
+
+                <p className="mt-4 max-w-lg text-[12px] leading-6 text-white/40 transition-colors duration-500 group-hover:text-white/60 sm:text-[13px] sm:leading-7">
+                  {project.description}
+                </p>
+              </div>
+
+              {/* Technology stack */}
+              <div className="relative z-10 mt-7">
+                <p className="mb-3 text-[8px] uppercase tracking-[0.25em] text-white/30">
+                  Technologies Used
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-white/10 bg-white/[0.025] px-2.5 py-1.5 text-[8px] tracking-[0.12em] text-white/50 transition-all duration-300 group-hover:border-white/20 group-hover:text-white/75 sm:text-[9px]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom action */}
+              <div className="relative z-10 mt-auto flex items-center justify-between border-t border-white/10 pt-6">
+                <span
+                  className={`text-[9px] font-medium uppercase tracking-[0.2em] transition-colors duration-300 ${project.accentText}`}
+                >
+                  {project.action}
+                </span>
+
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-lg text-white/60 transition-all duration-300 group-hover:rotate-45 group-hover:border-white/40 group-hover:bg-white group-hover:text-black">
+                  ↗
+                </span>
+              </div>
+
+              {/* Bottom hover accent */}
+              <div
+                className={`absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r ${project.accent} transition-all duration-700 group-hover:w-full`}
+              />
+            </motion.a>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-[8px] uppercase tracking-[0.25em] text-white/25 sm:mt-16 sm:flex-row sm:items-center sm:justify-between sm:text-[9px]"
+        >
+          <span>More ideas. More projects. Always building.</span>
+          <span>RAHUL MAHANTA · PORTFOLIO</span>
         </motion.div>
       </div>
     </section>
