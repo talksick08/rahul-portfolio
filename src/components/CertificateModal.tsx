@@ -31,7 +31,7 @@ export default function CertificateModal({ certification, onClose }: Certificate
   return (
     <AnimatePresence>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/85 backdrop-blur-md overflow-y-auto"
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] bg-black/85 backdrop-blur-md overflow-y-auto"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
@@ -42,13 +42,13 @@ export default function CertificateModal({ certification, onClose }: Certificate
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-2xl sm:rounded-3xl border border-white/[0.12] bg-[#0B0B0D] text-[#F2EFE9] shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden"
+          className="relative w-full max-w-4xl max-h-[88dvh] sm:max-h-[92vh] flex flex-col rounded-2xl sm:rounded-3xl border border-white/[0.12] bg-[#0B0B0D] text-[#F2EFE9] shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Top Modal Header */}
-          <div className="flex items-center justify-between border-b border-white/[0.08] px-5 sm:px-8 py-4 bg-white/[0.02]">
+          <div className="flex items-center justify-between border-b border-white/[0.08] px-4 sm:px-8 py-3.5 sm:py-4 bg-white/[0.02]">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+              <div className="w-8 h-8 rounded-full border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <div>
@@ -64,7 +64,7 @@ export default function CertificateModal({ certification, onClose }: Certificate
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-full border border-white/10 bg-white/[0.03] text-[#A7A39C] hover:text-[#F2EFE9] hover:bg-white/[0.08] transition-colors cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-white/10 bg-white/[0.03] text-[#A7A39C] hover:text-[#F2EFE9] hover:bg-white/[0.08] transition-colors cursor-pointer flex items-center justify-center"
               aria-label="Close Certificate Modal"
             >
               <X className="w-4 h-4" />
@@ -72,7 +72,7 @@ export default function CertificateModal({ certification, onClose }: Certificate
           </div>
 
           {/* Modal Body: Scrollable Content */}
-          <div className="overflow-y-auto p-5 sm:p-8 space-y-6">
+          <div className="overflow-y-auto p-4 sm:p-8 space-y-5 sm:space-y-6">
             {/* Title & Narrative */}
             <div>
               <div className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase text-[#C5A880] mb-1.5">
@@ -148,14 +148,14 @@ export default function CertificateModal({ certification, onClose }: Certificate
           </div>
 
           {/* Modal Footer */}
-          <div className="border-t border-white/[0.08] px-5 sm:px-8 py-4 bg-white/[0.02] flex items-center justify-between">
+          <div className="border-t border-white/[0.08] px-4 sm:px-8 py-3.5 sm:py-4 bg-white/[0.02] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <span className="font-mono text-[10px] text-[#77736F] uppercase tracking-widest">
               RAHUL MAHANTA &bull; VERIFIED CREDENTIAL ARCHIVE
             </span>
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2 rounded-full bg-[#F2EFE9] text-[#0B0B0D] font-bold text-xs uppercase tracking-wider hover:bg-white transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#F2EFE9] text-[#0B0B0D] font-bold text-xs uppercase tracking-wider hover:bg-white transition-colors cursor-pointer min-h-[44px] flex items-center justify-center"
             >
               Close Viewer
             </button>

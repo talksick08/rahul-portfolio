@@ -333,11 +333,11 @@ export default function ScrollExpandMedia({
                         </p>
                       </div>
 
-                      {/* Action Buttons */}
-                      <div className="flex flex-wrap items-center gap-3 shrink-0 pt-1 md:pt-0">
+                      {/* Action Buttons with Touch Targets */}
+                      <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0 pt-1 md:pt-0">
                         <Link
                           to="/about"
-                          className="pointer-events-auto px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center gap-1.5 cursor-pointer shadow-md"
+                          className="pointer-events-auto px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center gap-1.5 cursor-pointer shadow-md min-h-[44px]"
                         >
                           <span>DISCOVER MORE</span>
                           <ArrowUpRight className="w-3.5 h-3.5 text-black" />
@@ -347,7 +347,7 @@ export default function ScrollExpandMedia({
                           <button
                             type="button"
                             onClick={onOpenContact}
-                            className="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-400 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center gap-1.5 cursor-pointer"
+                            className="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-400 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center gap-1.5 cursor-pointer min-h-[44px]"
                           >
                             <span>GET IN TOUCH</span>
                           </button>
@@ -359,7 +359,7 @@ export default function ScrollExpandMedia({
                             const el = document.getElementById("experience");
                             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                           }}
-                          className="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-600 hover:border-white text-neutral-300 hover:text-white text-xs font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer inline-flex items-center gap-1.5"
+                          className="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-600 hover:border-white text-neutral-300 hover:text-white text-xs font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer inline-flex items-center gap-1.5 min-h-[44px]"
                         >
                           <span>TIMELINE</span>
                           <ArrowDown className="w-3.5 h-3.5" />

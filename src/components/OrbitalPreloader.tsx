@@ -106,7 +106,7 @@ export default function OrbitalPreloader({ onComplete }: OrbitalPreloaderProps) 
       <button
         type="button"
         onClick={skip}
-        className="absolute right-6 top-6 z-10 rounded-full border border-white/20 px-4 py-2 text-[10px] tracking-[0.2em] text-white/55 transition hover:border-white/60 hover:text-white"
+        className="absolute right-[max(1.5rem,env(safe-area-inset-right))] top-[max(1.5rem,env(safe-area-inset-top))] z-10 rounded-full border border-white/20 px-4 py-2.5 min-h-[40px] text-[10px] tracking-[0.2em] text-white/55 transition hover:border-white/60 hover:text-white flex items-center justify-center cursor-pointer"
         aria-label="Skip introduction"
       >
         SKIP INTRO ↗

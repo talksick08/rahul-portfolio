@@ -45,7 +45,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
             <div className="mb-10 sm:mb-12">
               <h2
                 onClick={onOpenContact}
-                className="text-[12vw] sm:text-[9vw] lg:text-[7.5rem] font-black uppercase tracking-tight text-[#F2EFE9] leading-[0.9] select-none cursor-pointer group"
+                className="text-[clamp(2.5rem,11vw,7.5rem)] font-black uppercase tracking-tight text-[#F2EFE9] leading-[0.9] select-none cursor-pointer group"
               >
                 <span className="group-hover:text-white transition-colors">LET'S BUILD</span>
                 <span className="text-[#C5A880]">.</span>
@@ -69,7 +69,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
               <div className="lg:col-span-5 flex flex-wrap items-center lg:justify-end gap-3.5">
                 <Link
                   to="/contact"
-                  className="px-7 py-3 rounded-full bg-[#F2EFE9] text-[#0B0B0D] hover:bg-white text-xs font-mono uppercase tracking-wider font-bold transition-all duration-200 shadow-md inline-flex items-center gap-2 cursor-pointer hover:scale-[1.02]"
+                  className="px-7 py-3 rounded-full bg-[#F2EFE9] text-[#0B0B0D] hover:bg-white text-xs font-mono uppercase tracking-wider font-bold transition-all duration-200 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] min-h-[44px] w-full sm:w-auto"
                 >
                   <span>START A CONVERSATION</span>
                   <ArrowUpRight className="w-4 h-4" />
@@ -77,7 +77,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
                 <button
                   type="button"
                   onClick={onOpenContact}
-                  className="px-6 py-3 rounded-full border border-white/15 bg-white/[0.03] text-[#F2EFE9] hover:bg-white/[0.08] hover:border-white/30 text-xs font-mono uppercase tracking-wider transition-all duration-200 inline-flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3 rounded-full border border-white/15 bg-white/[0.03] text-[#F2EFE9] hover:bg-white/[0.08] hover:border-white/30 text-xs font-mono uppercase tracking-wider transition-all duration-200 inline-flex items-center justify-center gap-2 cursor-pointer min-h-[44px] w-full sm:w-auto"
                 >
                   <Mail className="w-3.5 h-3.5 text-[#C5A880]" />
                   <span>QUICK INQUIRY</span>
@@ -290,7 +290,7 @@ export default function Footer({ onOpenContact }: FooterProps) {
         {/* =========================================================
             FINAL VISIBLE FOOTER CREDIT (EXACT SPECIFICATION)
         ========================================================= */}
-        <div className="w-full pt-6 pb-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono tracking-widest uppercase text-[#77736F] gap-4">
+        <div className="w-full pt-6 pb-[max(2rem,env(safe-area-inset-bottom))] border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono tracking-widest uppercase text-[#77736F] gap-4">
           <div>&copy; 2026 RAHUL MAHANTA</div>
           <div>DESIGN BY RAHUL MAHANTA</div>
         </div>

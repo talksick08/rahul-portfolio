@@ -42,15 +42,9 @@ export default function ContactPage() {
   const shouldReduceMotion = useReducedMotion();
 
   // Video Background Lifecycle & Performance State
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMobileOrReduced, setIsMobileOrReduced] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 768;
-    }
-    return false;
-  });
-  const [shouldLoadVideo, setShouldLoadVideo] = useState<boolean>(false);
+  const isReducedMotion = Boolean(shouldReduceMotion);
+  const [, setIsVideoReady] = useState<boolean>(false);
 
   // Form State
   const [name, setName] = useState("");
@@ -63,61 +57,53 @@ export default function ContactPage() {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Detect mobile device or reduced-motion preference
+  // Cross-platform video playback lifecycle for Android Chrome, iOS Safari & Desktop
   useEffect(() => {
-    const evaluateMobileOrReduced = () => {
-      const isMobile = window.innerWidth < 768;
-      setIsMobileOrReduced(Boolean(shouldReduceMotion || isMobile));
+    if (isReducedMotion) return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Explicitly configure DOM properties for strict iOS Safari and Android Chrome autoplay
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("playsinline", "true");
+
+    const attemptPlay = () => {
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise
+          .then(() => setIsVideoReady(true))
+          .catch((err) => {
+            // Low power mode or battery saver may defer autoplay; poster remains seamlessly visible
+            console.warn("Video playback deferred by browser policy:", err);
+          });
+      }
     };
 
-    evaluateMobileOrReduced();
-    window.addEventListener("resize", evaluateMobileOrReduced);
-    return () => window.removeEventListener("resize", evaluateMobileOrReduced);
-  }, [shouldReduceMotion]);
-
-  // Load video only when Contact section approaches viewport via IntersectionObserver
-  useEffect(() => {
-    if (isMobileOrReduced) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoadVideo(true);
-          if (videoRef.current && videoRef.current.paused) {
-            const playPromise = videoRef.current.play();
-            if (playPromise !== undefined) {
-              playPromise.catch(() => {});
-            }
-          }
-        } else {
-          // Pause playback when Contact section leaves viewport to save GPU/CPU
-          if (videoRef.current && !videoRef.current.paused) {
-            videoRef.current.pause();
-          }
-        }
-      },
-      {
-        rootMargin: "200px 0px 200px 0px",
-        threshold: 0.05,
-      }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+    if (video.readyState >= 2) {
+      attemptPlay();
+    } else {
+      video.addEventListener("canplay", attemptPlay, { once: true });
     }
 
-    return () => observer.disconnect();
-  }, [isMobileOrReduced]);
-
-  // Trigger video playback once source is activated
-  useEffect(() => {
-    if (shouldLoadVideo && videoRef.current && !isMobileOrReduced) {
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {});
+    // Save GPU & battery when page or tab is in the background
+    const handleVisibility = () => {
+      if (document.hidden) {
+        video.pause();
+      } else {
+        attemptPlay();
       }
-    }
-  }, [shouldLoadVideo, isMobileOrReduced]);
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      video.removeEventListener("canplay", attemptPlay);
+    };
+  }, [isReducedMotion]);
 
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -197,47 +183,46 @@ export default function ContactPage() {
 
   return (
     <main
-      ref={containerRef}
       data-purpose="page-contact"
       className="min-h-screen bg-[#0B0B0D] text-[#F2EFE9] pt-4 sm:pt-6 pb-28 select-none relative overflow-hidden"
     >
       <SEO {...seoConfig.contact} />
       {/* =========================================================
           CINEMATIC VIDEO BACKGROUND (CONTACT PAGE ONLY)
-          Full-width, red-and-black aesthetic with refined 38-42% overlay.
+          Fixed-viewport background ensuring correct composition on
+          all device widths (iPhone, Android, tablet, desktop).
           Preserves the marble statue, glowing red eclipse ring, smoke and embers.
       ========================================================= */}
       <div
-        className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0"
+        className="fixed inset-0 w-full h-[100dvh] overflow-hidden pointer-events-none z-0"
         aria-hidden="true"
       >
-        {/* On mobile or reduced-motion, render only the static poster image */}
-        {isMobileOrReduced ? (
+        {isReducedMotion ? (
           <img
             src="/assets/rahul-contact-bg-poster.jpg"
             alt=""
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-[center_35%] sm:object-center"
           />
         ) : (
           <video
             ref={videoRef}
-            src={shouldLoadVideo ? "/assets/rahul-contact-bg.mp4" : undefined}
-            preload="none"
+            src="/assets/rahul-contact-bg.mp4"
+            preload="auto"
             muted
             loop
             playsInline
             autoPlay
             poster="/assets/rahul-contact-bg-poster.jpg"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-[center_35%] sm:object-center"
           />
         )}
 
-        {/* Calibrated Dark Cinematic Overlay (~38-42% darkness)
+        {/* Calibrated Dark Cinematic Overlay (~35-40% darkness)
             Maintains the rich red-and-black contrast, red smoke and glowing ring
             while ensuring all editorial text, forms and buttons remain crystal clear */}
-        <div className="absolute inset-0 bg-[#0B0B0D]/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0D]/55 via-transparent to-[#0B0B0D]/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0D]/35 via-transparent to-[#0B0B0D]/35" />
+        <div className="absolute inset-0 bg-[#0B0B0D]/35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0D]/65 via-transparent to-[#0B0B0D]/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0D]/30 via-transparent to-[#0B0B0D]/30" />
       </div>
 
       <div className="relative z-10 max-w-[1360px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 space-y-12 sm:space-y-16">
@@ -489,7 +474,7 @@ export default function ContactPage() {
                       if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
                     }}
                     placeholder="Rahul Sharma or Company Name"
-                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-sm placeholder:text-[#55524F] transition-all focus:outline-none ${
+                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-base sm:text-sm placeholder:text-[#55524F] transition-all focus:outline-none min-h-[44px] ${
                       errors.name
                         ? "border-red-500/50 focus:border-red-500"
                         : "border-white/[0.1] focus:border-[#C5A880]/70 focus:bg-black/60"
@@ -520,7 +505,7 @@ export default function ContactPage() {
                       if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
                     }}
                     placeholder="your.name@domain.com"
-                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-sm placeholder:text-[#55524F] transition-all focus:outline-none ${
+                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-base sm:text-sm placeholder:text-[#55524F] transition-all focus:outline-none min-h-[44px] ${
                       errors.email
                         ? "border-red-500/50 focus:border-red-500"
                         : "border-white/[0.1] focus:border-[#C5A880]/70 focus:bg-black/60"
@@ -551,7 +536,7 @@ export default function ContactPage() {
                       if (errors.subject) setErrors((prev) => ({ ...prev, subject: "" }));
                     }}
                     placeholder="Engineering Role / Project Collaboration / Consultation"
-                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-sm placeholder:text-[#55524F] transition-all focus:outline-none ${
+                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-base sm:text-sm placeholder:text-[#55524F] transition-all focus:outline-none min-h-[44px] ${
                       errors.subject
                         ? "border-red-500/50 focus:border-red-500"
                         : "border-white/[0.1] focus:border-[#C5A880]/70 focus:bg-black/60"
@@ -587,7 +572,7 @@ export default function ContactPage() {
                       if (errors.message) setErrors((prev) => ({ ...prev, message: "" }));
                     }}
                     placeholder="Provide details about your project, timeline, or opportunity..."
-                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-sm placeholder:text-[#55524F] transition-all focus:outline-none resize-y ${
+                    className={`w-full px-4 py-3 rounded-xl border bg-black/40 text-[#F2EFE9] text-base sm:text-sm placeholder:text-[#55524F] transition-all focus:outline-none resize-y ${
                       errors.message
                         ? "border-red-500/50 focus:border-red-500"
                         : "border-white/[0.1] focus:border-[#C5A880]/70 focus:bg-black/60"
@@ -605,7 +590,7 @@ export default function ContactPage() {
                 <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <button
                     type="submit"
-                    className="px-6 py-3.5 rounded-full bg-[#F2EFE9] text-[#0B0B0D] hover:bg-white font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                    className="px-6 py-3.5 rounded-full bg-[#F2EFE9] text-[#0B0B0D] hover:bg-white font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-md cursor-pointer min-h-[44px]"
                   >
                     <span>COMPOSE IN GMAIL</span>
                     <ArrowUpRight className="w-4 h-4" />
@@ -614,7 +599,7 @@ export default function ContactPage() {
                   <button
                     type="button"
                     onClick={handleMailtoFallback}
-                    className="px-5 py-3 rounded-full border border-white/10 bg-white/[0.02] text-[#A7A39C] hover:text-[#F2EFE9] hover:border-white/25 font-mono text-xs uppercase tracking-wider transition-all duration-200 inline-flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="px-5 py-3.5 rounded-full border border-white/10 bg-white/[0.02] text-[#A7A39C] hover:text-[#F2EFE9] hover:border-white/25 font-mono text-xs uppercase tracking-wider transition-all duration-200 inline-flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>DEFAULT MAIL CLIENT</span>

@@ -358,7 +358,7 @@ export default function CertificationsPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between gap-4 pt-2">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
                       <div className="flex flex-wrap gap-1.5">
                         {cert.skills.slice(0, 3).map((skill) => (
                           <span
@@ -373,7 +373,7 @@ export default function CertificationsPage() {
                       <button
                         type="button"
                         onClick={() => setSelectedCert(cert)}
-                        className="px-4 py-2 rounded-full border border-white/15 bg-white/[0.03] text-[#F2EFE9] hover:bg-white hover:text-[#0B0B0D] hover:border-white text-xs font-mono uppercase tracking-wider transition-all duration-200 shrink-0 inline-flex items-center gap-1.5 cursor-pointer font-bold"
+                        className="px-4 py-2.5 rounded-full border border-white/15 bg-white/[0.03] text-[#F2EFE9] hover:bg-white hover:text-[#0B0B0D] hover:border-white text-xs font-mono uppercase tracking-wider transition-all duration-200 shrink-0 inline-flex items-center justify-center gap-1.5 cursor-pointer font-bold min-h-[44px]"
                       >
                         <span>INSPECT</span>
                         <Eye className="w-3.5 h-3.5" />

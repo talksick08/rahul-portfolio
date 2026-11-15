@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -30,6 +30,30 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
   // Determine whether current page has a dark background theme
   const isDarkPage = location.pathname !== "/";
 
+  // Prevent background scrolling while the mobile menu is open & listen for Escape key
+  useEffect(() => {
+    if (!isMobileOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsMobileOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMobileOpen]);
+
+  // Close mobile menu on route changes
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [location.pathname]);
+
   const handleNavClick = (link: NavItem) => {
     setIsMobileOpen(false);
 
@@ -54,7 +78,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
         }`}
         data-purpose="site-navigation"
       >
-        <div className="max-w-[1400px] mx-auto pt-4 pb-4 px-6 md:px-14 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 px-4 sm:px-6 md:px-14 flex items-center justify-between">
           {/* Brand Wordmark (Returns to Home /) */}
           <Link
             to="/"
@@ -63,7 +87,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
                 window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
               }
             }}
-            className={`group font-extrabold text-xl tracking-tight flex items-center select-none ${
+            className={`group font-extrabold text-xl tracking-tight flex items-center select-none min-h-[44px] py-1 ${
               isDarkPage ? "text-[#F2EFE9]" : "text-black"
             }`}
           >
@@ -90,7 +114,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
                   key={link.id}
                   type="button"
                   onClick={() => handleNavClick(link)}
-                  className={`px-3 xl:px-4 py-1.5 xl:py-2 rounded-full transition whitespace-nowrap cursor-pointer text-[11px] xl:text-xs font-semibold tracking-wider ${
+                  className={`px-3 xl:px-4 py-1.5 xl:py-2 rounded-full transition whitespace-nowrap cursor-pointer text-[11px] xl:text-xs font-semibold tracking-wider min-h-[36px] flex items-center justify-center ${
                     active
                       ? isDarkPage
                         ? "border border-white/20 text-[#F2EFE9] bg-white/10 shadow-xs font-bold"
@@ -108,7 +132,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
 
           {/* Right Social & Menu Links */}
           <div
-            className={`flex items-center gap-1.5 md:gap-2 p-1.5 rounded-full shadow-xs ${
+            className={`flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 rounded-full shadow-xs ${
               isDarkPage
                 ? "bg-[#141418]/90 border border-white/10 text-neutral-300"
                 : "bg-white/95 border border-[#E2E2E2] text-neutral-700"
@@ -116,7 +140,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
           >
             {/* Instagram */}
             <a
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
+              className={`w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center transition ${
                 isDarkPage
                   ? "hover:bg-white/10 hover:text-white"
                   : "hover:bg-neutral-100 hover:text-black"
@@ -124,6 +148,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
               href="https://www.instagram.com/highnhoes"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram Profile"
               title="Instagram"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -135,7 +160,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
 
             {/* GitHub */}
             <a
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
+              className={`w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center transition ${
                 isDarkPage
                   ? "hover:bg-white/10 hover:text-white"
                   : "hover:bg-neutral-100 hover:text-black"
@@ -143,6 +168,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
               href="https://github.com/talksick08"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="GitHub Profile"
               title="GitHub"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -156,7 +182,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
 
             {/* LinkedIn */}
             <a
-              className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
+              className={`w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center transition ${
                 isDarkPage
                   ? "hover:bg-white/10 hover:text-white"
                   : "hover:bg-neutral-100 hover:text-black"
@@ -164,6 +190,7 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
               href="https://www.linkedin.com/in/rahul-mahanta-57a16a325/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn Profile"
               title="LinkedIn"
             >
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -176,13 +203,15 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
               type="button"
               onClick={() => setIsMobileOpen(true)}
               aria-label="Open Navigation Menu"
-              className={`lg:hidden w-8 h-8 rounded-full flex items-center justify-center transition ml-1 cursor-pointer ${
+              aria-expanded={isMobileOpen}
+              aria-controls="mobile-navigation-drawer"
+              className={`lg:hidden w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center transition cursor-pointer ${
                 isDarkPage
                   ? "hover:bg-white/10 text-white"
-                  : "hover:bg-neutral-100 text-neutral-700"
+                  : "hover:bg-neutral-100 text-neutral-800"
               }`}
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                 <line x1="4" x2="20" y1="7" y2="7" />
                 <line x1="4" x2="20" y1="12" y2="12" />
                 <line x1="4" x2="20" y1="17" y2="17" />
@@ -195,26 +224,36 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isMobileOpen && (
-          <div className="fixed inset-0 z-50 flex justify-end">
+          <div className="fixed inset-0 z-50 flex justify-end" id="mobile-navigation-drawer">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+              className="fixed inset-0 bg-black/75 backdrop-blur-xs"
+              aria-hidden="true"
             />
 
-            {/* Drawer */}
+            {/* Drawer Container */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 260 }}
-              className="relative z-10 w-4/5 max-w-sm bg-white h-full p-8 flex flex-col justify-between shadow-2xl"
+              transition={{ type: "spring", damping: 28, stiffness: 280 }}
+              className={`relative z-10 w-full sm:w-4/5 max-w-sm h-full max-h-[100dvh] pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))] px-6 sm:px-8 flex flex-col justify-between shadow-2xl overflow-y-auto ${
+                isDarkPage
+                  ? "bg-[#0E0E12] text-[#F2EFE9] border-l border-white/10"
+                  : "bg-white text-neutral-900 border-l border-neutral-200"
+              }`}
             >
               <div>
-                <div className="flex items-center justify-between pb-6 border-b border-neutral-200">
+                {/* Drawer Header */}
+                <div
+                  className={`flex items-center justify-between pb-5 border-b ${
+                    isDarkPage ? "border-white/10" : "border-neutral-200"
+                  }`}
+                >
                   <span className="font-extrabold text-lg tracking-tight flex items-center">
                     <span>RAHUL</span>
                     <span className="inline-block w-2 h-2 rounded-full ml-1.5 bg-[#A89AC9]" />
@@ -222,13 +261,19 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
                   <button
                     type="button"
                     onClick={() => setIsMobileOpen(false)}
-                    className="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:border-black cursor-pointer"
+                    aria-label="Close navigation menu"
+                    className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border flex items-center justify-center transition-colors cursor-pointer text-sm font-bold ${
+                      isDarkPage
+                        ? "border-white/15 bg-white/[0.03] text-[#A7A39C] hover:border-white hover:text-white"
+                        : "border-neutral-300 text-neutral-700 hover:border-black hover:text-black"
+                    }`}
                   >
                     ✕
                   </button>
                 </div>
 
-                <nav className="flex flex-col gap-3 mt-8 text-base font-bold tracking-wider">
+                {/* Navigation Links */}
+                <nav className="flex flex-col gap-1 mt-6">
                   {navLinks.map((link) => {
                     const active = isLinkActive(link);
                     return (
@@ -236,11 +281,26 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
                         key={link.id}
                         type="button"
                         onClick={() => handleNavClick(link)}
-                        className={`py-2 text-left border-b border-neutral-100 hover:text-black cursor-pointer text-sm font-bold tracking-widest uppercase transition-colors ${
-                          active ? "text-black underline font-black" : "text-neutral-600"
+                        className={`min-h-[48px] py-3 px-2 text-left border-b flex items-center justify-between cursor-pointer text-sm font-bold tracking-widest uppercase transition-colors ${
+                          isDarkPage ? "border-white/[0.06]" : "border-neutral-100"
+                        } ${
+                          active
+                            ? isDarkPage
+                              ? "text-[#C5A880] font-black"
+                              : "text-black font-black"
+                            : isDarkPage
+                            ? "text-[#A7A39C] hover:text-[#F2EFE9]"
+                            : "text-neutral-600 hover:text-black"
                         }`}
                       >
-                        {link.label}
+                        <span>{link.label}</span>
+                        {active && (
+                          <span
+                            className={`w-2 h-2 rounded-full ${
+                              isDarkPage ? "bg-[#C5A880]" : "bg-black"
+                            }`}
+                          />
+                        )}
                       </button>
                     );
                   })}
@@ -255,19 +315,28 @@ export default function Navigation({ onOpenContact }: NavigationProps) {
                         navigate("/contact");
                       }
                     }}
-                    className="pt-4 text-left text-sm font-bold tracking-widest uppercase text-black hover:underline cursor-pointer flex items-center gap-1.5"
+                    className={`mt-4 py-3 px-4 rounded-full text-xs font-bold tracking-widest uppercase transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px] shadow-sm ${
+                      isDarkPage
+                        ? "bg-[#F2EFE9] text-[#0B0B0D] hover:bg-white"
+                        : "bg-black text-white hover:bg-neutral-800"
+                    }`}
                   >
-                    <span>CONTACT ME</span>
+                    <span>START A CONVERSATION</span>
                     <span>↗</span>
                   </button>
                 </nav>
               </div>
 
-              <div className="pt-6 border-t border-neutral-200">
-                <p className="text-xs uppercase tracking-widest text-neutral-400 mb-1 font-bold">
+              {/* Drawer Footer */}
+              <div
+                className={`pt-5 mt-6 border-t ${
+                  isDarkPage ? "border-white/10 text-[#77736F]" : "border-neutral-200 text-neutral-500"
+                }`}
+              >
+                <p className="text-xs uppercase tracking-widest mb-1 font-bold">
                   RAHUL MAHANTA
                 </p>
-                <p className="text-xs text-neutral-600">Developer &bull; Computer Science Student</p>
+                <p className="text-xs">Developer &bull; Computer Science Student</p>
               </div>
             </motion.div>
           </div>

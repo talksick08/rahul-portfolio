@@ -75,8 +75,7 @@ export default function FeaturedProjectsSection() {
         <div id="projects-content" className="w-full">
           <div
             id="flex-carousel-container"
-            className="rounded-3xl border border-neutral-200 bg-[#0E0E12] overflow-hidden shadow-inner relative"
-            style={{ width: "100%", height: "560px" }}
+            className="rounded-2xl sm:rounded-3xl border border-neutral-200 bg-[#0E0E12] overflow-hidden shadow-inner relative w-full h-[400px] sm:h-[480px] md:h-[560px]"
           >
             <FlexCarousel
               items={carouselItems}
@@ -146,7 +145,7 @@ export default function FeaturedProjectsSection() {
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons with Touch Targets */}
               <div className="flex items-center justify-between pt-3 border-t border-neutral-100">
                 <button
                   type="button"
@@ -154,7 +153,7 @@ export default function FeaturedProjectsSection() {
                     e.stopPropagation();
                     setSelectedProject(proj);
                   }}
-                  className="text-xs font-bold uppercase tracking-wider text-neutral-700 hover:text-black inline-flex items-center gap-1 transition cursor-pointer"
+                  className="text-xs font-bold uppercase tracking-wider text-neutral-700 hover:text-black inline-flex items-center gap-1 transition cursor-pointer min-h-[44px] py-2 px-1"
                 >
                   <span>Project Specs</span>
                   <span>↗</span>
@@ -165,7 +164,7 @@ export default function FeaturedProjectsSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className={`px-5 py-2 rounded-full text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:scale-105 cursor-pointer inline-flex items-center gap-1.5 ${
+                  className={`px-5 py-2.5 rounded-full text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm hover:scale-105 cursor-pointer inline-flex items-center gap-1.5 min-h-[44px] ${
                     proj.accent === "purple"
                       ? "bg-purple-900 hover:bg-purple-800"
                       : "bg-neutral-900 hover:bg-black"

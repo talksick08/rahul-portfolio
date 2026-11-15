@@ -287,7 +287,7 @@ export default function ContactSection({ compact = false }: ContactSectionProps)
                         if (errors.name) setErrors({ ...errors, name: "" });
                       }}
                       placeholder="Rahul Mahanta"
-                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-base sm:text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors min-h-[44px] ${
                         errors.name
                           ? "border-red-500 focus:border-red-400"
                           : "border-white/15 focus:border-cyan-400"
@@ -311,7 +311,7 @@ export default function ContactSection({ compact = false }: ContactSectionProps)
                         if (errors.email) setErrors({ ...errors, email: "" });
                       }}
                       placeholder="your.email@example.com"
-                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-base sm:text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors min-h-[44px] ${
                         errors.email
                           ? "border-red-500 focus:border-red-400"
                           : "border-white/15 focus:border-cyan-400"
@@ -335,7 +335,7 @@ export default function ContactSection({ compact = false }: ContactSectionProps)
                         if (errors.subject) setErrors({ ...errors, subject: "" });
                       }}
                       placeholder="Project Inquiry / Collaboration / Web Application"
-                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-base sm:text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors min-h-[44px] ${
                         errors.subject
                           ? "border-red-500 focus:border-red-400"
                           : "border-white/15 focus:border-cyan-400"
@@ -359,7 +359,7 @@ export default function ContactSection({ compact = false }: ContactSectionProps)
                         if (errors.message) setErrors({ ...errors, message: "" });
                       }}
                       placeholder="Tell me about your project, technical requirements, or collaboration goals..."
-                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors resize-none ${
+                      className={`w-full px-4 py-3 rounded-xl bg-white/[0.05] border text-base sm:text-sm text-white placeholder-neutral-500 focus:outline-none transition-colors resize-none ${
                         errors.message
                           ? "border-red-500 focus:border-red-400"
                           : "border-white/15 focus:border-cyan-400"

@@ -72,6 +72,10 @@
 }
 
 :root {
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -152,6 +156,22 @@
     background-color: #FAFAFA;
     color: #121212;
     overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* iOS Safari 16px minimum font size for input elements to prevent auto-zooming on focus */
+  @media screen and (max-width: 767px) {
+    input:not([type="checkbox"]):not([type="radio"]),
+    textarea,
+    select {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Support inertia momentum scrolling on iOS Safari */
+  .overflow-y-auto,
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
   }
 
   ::selection {
@@ -159,6 +179,43 @@
     color: #ffffff;
   }
 }
+
+/* ============================================================
+   MOBILE RESPONSIVENESS & SAFE AREA INSETS UTILITIES
+   ============================================================ */
+.pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+.pb-safe {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+.pl-safe {
+  padding-left: max(1rem, env(safe-area-inset-left));
+}
+.pr-safe {
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* Dynamic Viewport Units */
+.min-h-screen-dynamic {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.h-screen-dynamic {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 
 /* ============================================================
    EDITORIAL DESIGN SYSTEM UTILITIES & METALLIC SHADERS

@@ -59,7 +59,7 @@ export default function ContactModal({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))]">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -75,9 +75,9 @@ export default function ContactModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 16 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative z-10 bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl text-neutral-900 border border-neutral-200 select-none"
+            className="relative z-10 bg-white rounded-3xl max-w-lg w-full max-h-[90dvh] overflow-y-auto p-5 sm:p-7 md:p-8 shadow-2xl text-neutral-900 border border-neutral-200 select-none"
           >
-            <div className="flex justify-between items-center border-b border-neutral-200 pb-4 mb-6">
+            <div className="flex justify-between items-center border-b border-neutral-200 pb-4 mb-5">
               <div>
                 <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-400">
                   START A CONVERSATION
@@ -89,7 +89,8 @@ export default function ContactModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-600 hover:border-black hover:text-black cursor-pointer"
+                aria-label="Close contact dialog"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-neutral-300 flex items-center justify-center text-neutral-600 hover:border-black hover:text-black cursor-pointer text-sm font-bold"
               >
                 ✕
               </button>
@@ -106,7 +107,7 @@ export default function ContactModal({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Rahul Mahanta"
-                  className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm"
+                  className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-base sm:text-sm min-h-[44px]"
                 />
               </div>
 
@@ -120,7 +121,7 @@ export default function ContactModal({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="hello@example.com"
-                  className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm"
+                  className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-base sm:text-sm min-h-[44px]"
                 />
               </div>
 
@@ -131,7 +132,7 @@ export default function ContactModal({
                 <select
                   value={service}
                   onChange={(e) => setService(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm bg-white cursor-pointer"
+                  className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-base sm:text-sm bg-white cursor-pointer min-h-[44px]"
                 >
                   <option value="Full-Stack Web Development">Full-Stack Web Development</option>
                   <option value="AI & Machine Learning Integration">AI &amp; Machine Learning Integration</option>
@@ -150,13 +151,13 @@ export default function ContactModal({
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Share details about your project, goals, or inquiries..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-base sm:text-sm resize-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 bg-black text-white rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition cursor-pointer"
+                className="w-full py-3.5 bg-black text-white rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition cursor-pointer min-h-[44px]"
               >
                 SEND MESSAGE ↗
               </button>

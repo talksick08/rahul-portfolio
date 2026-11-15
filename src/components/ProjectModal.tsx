@@ -53,7 +53,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-8">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-8 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))]">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -69,10 +69,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 16 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 bg-[#0E0E12] rounded-2xl sm:rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto no-scrollbar p-6 sm:p-9 shadow-2xl border border-white/[0.1] text-[#F2EFE9] select-none space-y-6 sm:space-y-8"
+          className="relative z-10 bg-[#0E0E12] rounded-2xl sm:rounded-3xl max-w-3xl w-full max-h-[88dvh] overflow-y-auto p-5 sm:p-7 md:p-9 shadow-2xl border border-white/[0.1] text-[#F2EFE9] select-none space-y-6 sm:space-y-8"
         >
           {/* Header */}
-          <div className="relative pb-5 border-b border-white/[0.08] pr-12">
+          <div className="relative pb-5 border-b border-white/[0.08] pr-14">
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-[#C5A880]/30 bg-[#C5A880]/10 text-[10px] font-mono tracking-wider uppercase text-[#C5A880]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-pulse" />
@@ -84,14 +84,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </span>
             </div>
 
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase text-[#F2EFE9] tracking-tight leading-tight">
+            <h3 className="text-xl sm:text-2xl md:text-4xl font-extrabold uppercase text-[#F2EFE9] tracking-tight leading-tight">
               {project.title}
             </h3>
 
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-0 top-0 w-9 h-9 rounded-full border border-white/15 bg-white/[0.03] flex items-center justify-center text-[#A7A39C] hover:border-[#C5A880] hover:text-[#F2EFE9] hover:bg-white/10 transition-colors cursor-pointer"
+              className="absolute right-0 top-0 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-white/15 bg-white/[0.03] flex items-center justify-center text-[#A7A39C] hover:border-[#C5A880] hover:text-[#F2EFE9] hover:bg-white/10 transition-colors cursor-pointer text-sm font-bold"
               aria-label="Close modal"
             >
               ✕
@@ -190,14 +190,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </div>
 
           {/* Footer Actions */}
-          <div className="pt-5 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-3">
+          <div className="pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               {liveLink && (
                 <a
                   href={liveLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2.5 rounded-full bg-[#F2EFE9] text-[#0B0B0D] hover:bg-white text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2 shadow-sm"
+                  className="px-5 py-3 rounded-full bg-[#F2EFE9] text-[#0B0B0D] hover:bg-white text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2 shadow-sm min-h-[44px]"
                 >
                   <span>LIVE PROJECT DEMO</span>
                   <ExternalLink className="w-3.5 h-3.5 text-[#0B0B0D]" />
@@ -209,7 +209,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-full border border-white/15 hover:border-white text-xs font-mono uppercase tracking-wider text-[#A7A39C] hover:text-[#F2EFE9] transition-colors inline-flex items-center gap-1.5"
+                  className="px-4 py-3 rounded-full border border-white/15 hover:border-white text-xs font-mono uppercase tracking-wider text-[#A7A39C] hover:text-[#F2EFE9] transition-colors inline-flex items-center justify-center gap-1.5 min-h-[44px]"
                 >
                   <Github className="w-3.5 h-3.5" />
                   <span>VIEW REPOSITORY</span>
@@ -220,7 +220,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="text-xs font-mono text-[#77736F] hover:text-[#F2EFE9] transition-colors cursor-pointer py-1"
+              className="text-xs font-mono text-[#77736F] hover:text-[#F2EFE9] transition-colors cursor-pointer py-2 min-h-[40px] flex items-center justify-center"
             >
               CLOSE CASE STUDY [ESC]
             </button>

@@ -78,7 +78,7 @@ export default function Hero({ onSelectService }: HeroProps) {
     <section
       id="home"
       data-purpose="hero-section"
-      className="relative isolate min-h-[calc(100svh-88px)] lg:h-[calc(100svh-88px)] max-h-[1050px] overflow-hidden bg-[#f4f3ef] px-4 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-4 md:pt-5 pb-3 sm:pb-4 text-[#111] select-none flex flex-col justify-between"
+      className="relative isolate min-h-[calc(100dvh-72px)] lg:h-[calc(100svh-88px)] max-h-[1100px] overflow-hidden bg-[#f4f3ef] px-4 sm:px-6 md:px-8 lg:px-12 pt-3 sm:pt-4 md:pt-5 pb-3 sm:pb-4 text-[#111] select-none flex flex-col justify-between"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px bg-black/10" />
 
@@ -91,7 +91,7 @@ export default function Hero({ onSelectService }: HeroProps) {
             initial="hidden"
             animate="visible"
             variants={solidTitleVariant}
-            className="block font-extrabold uppercase leading-[0.9] tracking-[-0.035em] text-[#121212] text-[clamp(2.4rem,7.4vw,6.6rem)]"
+            className="block font-extrabold uppercase leading-[0.9] tracking-[-0.035em] text-[#121212] text-[clamp(1.95rem,7.4vw,6.6rem)]"
           >
             EXPLORE MY
           </motion.span>
@@ -103,7 +103,7 @@ export default function Hero({ onSelectService }: HeroProps) {
             initial="hidden"
             animate="visible"
             variants={outlinedTitleVariant}
-            className="block font-black uppercase leading-[0.85] tracking-[-0.045em] text-[clamp(3.1rem,10.2vw,9.0rem)] text-transparent"
+            className="block font-black uppercase leading-[0.85] tracking-[-0.045em] text-[clamp(2.55rem,10.2vw,9.0rem)] text-transparent"
             style={{
               WebkitTextStroke: "1.5px #171717",
             }}
@@ -113,13 +113,13 @@ export default function Hero({ onSelectService }: HeroProps) {
         </span>
       </h1>
 
-      {/* Centered Approved Black-and-White Suit Portrait: Increased by 20-25%, complete curls with headroom, clear gap from text */}
+      {/* Centered Approved Black-and-White Suit Portrait: Headroom fixed, complete curls preserved, fully responsive */}
       <motion.div
         initial="hidden"
         animate="visible"
         variants={portraitVariant}
         style={{ y: portraitParallaxY }}
-        className="pointer-events-none relative lg:absolute lg:bottom-6 xl:bottom-8 lg:left-1/2 lg:-translate-x-1/2 z-[15] flex items-end justify-center -mt-2 sm:-mt-4 lg:mt-0 h-[38vh] sm:h-[44vh] lg:h-[62vh] xl:h-[65vh] max-h-[600px] w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] lg:max-w-[560px] xl:max-w-[600px] mx-auto"
+        className="pointer-events-none relative lg:absolute lg:bottom-6 xl:bottom-8 lg:left-1/2 lg:-translate-x-1/2 z-[15] flex items-end justify-center -mt-1 sm:-mt-3 lg:mt-0 h-[30vh] sm:h-[38vh] md:h-[44vh] lg:h-[62vh] xl:h-[65vh] min-h-[200px] max-h-[600px] w-full max-w-[270px] sm:max-w-[340px] md:max-w-[420px] lg:max-w-[560px] xl:max-w-[600px] mx-auto"
       >
         <picture className="h-full w-full flex items-end justify-center">
           <source srcSet="/assets/rahul-portrait-headroom-fixed.webp" type="image/webp" />
@@ -135,14 +135,14 @@ export default function Hero({ onSelectService }: HeroProps) {
       </motion.div>
 
       {/* Side Content Columns: z-index 30 (topmost foreground layer, fully accessible and contained within viewport) */}
-      <div className="relative z-30 mx-auto mt-2 lg:mt-auto flex flex-col md:flex-row md:items-end justify-between w-full max-w-[1400px] gap-6 md:gap-4 lg:gap-0 pb-1 lg:pb-2 pointer-events-none px-2 sm:px-4">
+      <div className="relative z-30 mx-auto mt-2 lg:mt-auto flex flex-col md:flex-row md:items-end justify-between w-full max-w-[1400px] gap-5 md:gap-4 lg:gap-0 pb-1 lg:pb-2 pointer-events-none px-2 sm:px-4">
         
         {/* Left Column: Academic Identity & Navigation CTAs */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={leftVariant}
-          className="pointer-events-auto flex flex-col items-start gap-3 sm:gap-4 max-w-[260px] sm:max-w-[280px]"
+          className="pointer-events-auto flex flex-col items-start gap-2.5 sm:gap-4 max-w-full sm:max-w-[280px]"
         >
           <div className="space-y-1">
             <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-black/50 block font-bold">
@@ -156,11 +156,11 @@ export default function Hero({ onSelectService }: HeroProps) {
             </p>
           </div>
 
-          {/* Clear Editorial Navigation Actions */}
+          {/* Clear Editorial Navigation Actions with Touch-Friendly Targets */}
           <div className="flex flex-col sm:flex-row md:flex-col gap-2 w-full sm:w-auto pt-0.5">
             <Link
               to="/projects"
-              className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-black text-white hover:bg-neutral-800 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center justify-between gap-3 sm:gap-4 shadow-sm group cursor-pointer"
+              className="px-5 py-3 rounded-full bg-black text-white hover:bg-neutral-800 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center justify-between gap-3 sm:gap-4 shadow-sm group cursor-pointer min-h-[44px]"
             >
               <span>EXPLORE PROJECTS</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -168,7 +168,7 @@ export default function Hero({ onSelectService }: HeroProps) {
 
             <Link
               to="/about"
-              className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-black/25 hover:border-black text-black hover:bg-black/5 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center justify-between gap-3 sm:gap-4 cursor-pointer"
+              className="px-5 py-3 rounded-full border border-black/25 hover:border-black text-black hover:bg-black/5 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center justify-between gap-3 sm:gap-4 cursor-pointer min-h-[44px]"
             >
               <span>ABOUT ME</span>
               <ArrowRight className="w-4 h-4" />
@@ -181,7 +181,7 @@ export default function Hero({ onSelectService }: HeroProps) {
           initial="hidden"
           animate="visible"
           variants={rightVariant}
-          className="pointer-events-auto flex flex-col items-start md:items-end gap-3 sm:gap-4 max-w-[270px] sm:max-w-[290px]"
+          className="pointer-events-auto flex flex-col items-start md:items-end gap-2.5 sm:gap-4 max-w-full sm:max-w-[290px]"
         >
           <div className="space-y-1 md:text-right">
             <h2 className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.15em] text-black">
@@ -194,15 +194,15 @@ export default function Hero({ onSelectService }: HeroProps) {
 
           <div className="flex flex-col items-start gap-1.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.16em] text-black/70 md:items-end">
             <span className="text-[9px] font-mono text-black/40 tracking-widest">FOCUS DISCIPLINES</span>
-            <Link to="/projects" className="group inline-flex items-center gap-2 hover:text-black transition-colors">
+            <Link to="/projects" className="group inline-flex items-center gap-2 hover:text-black transition-colors min-h-[28px]">
               <span className="h-px w-0 bg-black transition-all duration-300 group-hover:w-4" />
               FULL-STACK WEB DEVELOPMENT
             </Link>
-            <Link to="/projects" className="group inline-flex items-center gap-2 hover:text-black transition-colors">
+            <Link to="/projects" className="group inline-flex items-center gap-2 hover:text-black transition-colors min-h-[28px]">
               <span className="h-px w-0 bg-black transition-all duration-300 group-hover:w-4" />
               CYBERSECURITY &amp; THREAT MONITORING
             </Link>
-            <Link to="/skills" className="group inline-flex items-center gap-2 hover:text-black transition-colors">
+            <Link to="/skills" className="group inline-flex items-center gap-2 hover:text-black transition-colors min-h-[28px]">
               <span className="h-px w-0 bg-black transition-all duration-300 group-hover:w-4" />
               APPLIED MACHINE LEARNING
             </Link>
@@ -211,7 +211,7 @@ export default function Hero({ onSelectService }: HeroProps) {
       </div>
 
       {/* Bottom Metadata Information Strip: z-index 30 */}
-      <div className="relative z-30 mx-auto flex w-full max-w-[1400px] items-center justify-between border-t border-black/15 pt-2 sm:pt-2.5 text-[8px] font-semibold uppercase tracking-[0.2em] text-black/40 sm:text-[9px] px-2 sm:px-4">
+      <div className="relative z-30 mx-auto flex flex-col sm:flex-row w-full max-w-[1400px] items-center justify-between border-t border-black/15 pt-2 sm:pt-2.5 pb-0.5 text-[8px] sm:text-[9px] font-semibold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-black/45 gap-1.5 sm:gap-0 px-2 sm:px-4 text-center sm:text-left">
         <span>INDEPENDENT DIGITAL PRACTICE</span>
         <span>GALGOTIAS UNIVERSITY &bull; INDIA &bull; 2026</span>
         <a
@@ -220,7 +220,7 @@ export default function Hero({ onSelectService }: HeroProps) {
             e.preventDefault();
             document.getElementById("preview-about")?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="transition-colors hover:text-black inline-flex items-center gap-1.5 cursor-pointer"
+          className="transition-colors hover:text-black inline-flex items-center gap-1.5 cursor-pointer min-h-[28px]"
         >
           <span>SCROLL TO EXPLORE</span>
           <ArrowDown className="w-3 h-3" />

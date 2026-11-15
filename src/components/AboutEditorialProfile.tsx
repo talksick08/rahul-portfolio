@@ -13,9 +13,17 @@ import {
 
 interface AboutEditorialProfileProps {
   onOpenContact?: () => void;
+  portraitAspectRatio?: string;
+  portraitFit?: "cover" | "contain";
+  portraitPosition?: string;
 }
 
-export default function AboutEditorialProfile({ onOpenContact }: AboutEditorialProfileProps) {
+export default function AboutEditorialProfile({
+  onOpenContact,
+  portraitAspectRatio = "aspect-[3/4] sm:aspect-[4/5] lg:aspect-[4/5]",
+  portraitFit = "cover",
+  portraitPosition = "center 25%",
+}: AboutEditorialProfileProps) {
   const shouldReduceMotion = useReducedMotion();
 
   const fadeInVariants: Variants = {
@@ -151,15 +159,26 @@ export default function AboutEditorialProfile({ onOpenContact }: AboutEditorialP
             variants={fadeInVariants}
             className="lg:col-span-5 flex flex-col items-center lg:items-start"
           >
-            <div className="w-full max-w-[290px] sm:max-w-[320px] lg:max-w-[340px]">
-              {/* Portrait Container: Naturally adapts to the photograph's complete 9:16 aspect ratio with zero cropping */}
-              <div className="relative w-full rounded-2xl overflow-hidden border border-white/[0.12] bg-[#111114] shadow-[0_16px_36px_rgba(0,0,0,0.6)]">
-                <picture>
+            <div className="w-full max-w-[280px] xs:max-w-[300px] sm:max-w-[320px] lg:max-w-[340px]">
+              {/* Portrait Container: Independently adjustable aspect ratios (3:4 on smartphone, 4:5 on tablet/desktop) */}
+              <div
+                data-purpose="about-portrait-frame"
+                className={`relative w-full ${portraitAspectRatio} rounded-2xl overflow-hidden border border-white/[0.12] bg-[#111114] shadow-[0_16px_36px_rgba(0,0,0,0.6)]`}
+              >
+                <picture className="w-full h-full block">
                   <source srcSet="/assets/about-restaurant-original.webp" type="image/webp" />
                   <img
                     src="/assets/about-restaurant-original.jpeg"
                     alt="Rahul Mahanta — Computer Science Student"
-                    className="w-full h-auto object-contain block rounded-2xl"
+                    className={`w-full h-full ${
+                      portraitFit === "contain"
+                        ? "object-contain object-center"
+                        : "object-cover"
+                    } block rounded-2xl`}
+                    style={{
+                      objectPosition:
+                        portraitFit === "contain" ? "center" : portraitPosition,
+                    }}
                     loading="lazy"
                     decoding="async"
                     width={576}
